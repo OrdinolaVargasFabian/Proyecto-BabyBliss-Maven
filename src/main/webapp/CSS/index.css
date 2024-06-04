@@ -1,0 +1,145 @@
+/*********************************CARRUSEL*******************************************************/
+/*TAMAÑO IMAGENES CARRUSEL*/
+.carousel-item img {
+    width: 100%; 
+    height: auto; 
+}
+/*TITULO*/
+.carousel h4{
+    text-align: center; 
+    font-size: 75px;
+    font-weight: bold;
+    line-height: 80px;
+    color: #9999ff;
+    text-transform: uppercase;
+    margin-bottom: 30px; 
+}
+/*********************************INICIO*******************************************************/
+/*ZOOM DE IMAGEN*/
+.zoom {
+    width: 90%;
+    transition: transform .2s;
+}
+.zoom:hover {
+    transform: scale(1.1); 
+}
+/*IMAGEN*/
+.header{
+    background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(../IMG/inicio.jpg);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 70vh;
+    display: flex;  
+    align-items: center;
+} 
+/*TITULO*/
+.content{
+    text-align: center;   
+}
+.content h1{
+    font-size: 75px;
+    font-weight: bold;
+    line-height: 80px;
+    color: #FFF;
+    text-transform: uppercase;
+    margin-bottom: 90px;
+}
+/*CONTENIDO*/
+.content p{
+    font-size: 22px;
+    color: #FFF;
+    padding: 0 255px;
+    margin-bottom: 90px;  
+}
+/*BOTON*/
+.btn-1{
+    display: inline-block;
+    font-weight: bold;
+    padding: 11px 35px;
+    background-color:#FFF; 
+    color:#9999ff; /*COLOR TEXTO BOTON*/
+    text-transform: uppercase;
+    text-decoration: none; 
+    height: 100%;
+    border-radius: 6px;
+}
+/*********************************DETALLES*******************************************************/
+/*GARANTIA - PAGO SEGURO*/
+.det {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.garantia, .pago {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 10px; 
+    margin: 20px; /* Espacio entre los contenedores */
+}
+
+.garantia i, .pago i {
+    font-size: 60px; 
+    color: #9999ff; /* COLOR LILA */
+}
+
+.garantia h2, .pago h2 {
+    margin-top: 10px; /* Espacio entre el icono y el título */
+    font-size: 18px; 
+    color: #ff5757;  /* COLOR ROJO */
+}
+
+.garantia p, .pago p {
+    margin-top: 5px; /* Espacio entre el título y el texto */
+    color: #9999ff;  
+}
+/*********************************GUIAS*******************************************************/
+.guias{ /* CENTRAR TODO EL TEXTO DE LAS GUIAS */
+    text-align: center; 
+}
+.guiaAl, .guiaEd, .guiaHi {  /* TAMAÑO CONT BLANCO */
+    position: relative;
+    background-color: white;
+    
+}
+.guiaAl h3{ /* TITULO */
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 80px;
+    color: #9999ff;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 30px 40px;
+}
+
+.guiaAl img, .guiaEd img, .guiaHi img{
+    border-radius: 15px;
+    margin-top: 30px;
+}
+/*GUIAS DE ALIMENTACIÓN*/
+.guiaAl p {
+    font-size: 75px;
+    font-weight: bold;
+    position: absolute;
+    top: 450px; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+}
+.guiaEd p, .guiaHi p{
+    font-size: 75px;
+    font-weight: bold;
+    position: absolute;
+    top: 320px; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+}
+
+
+
+
