@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BoletaMembresia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0e4d85f-9c02-42d6-9af9-a5fcb058112c">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="fechaInicio" class="java.sql.Date"/>
+	<field name="fechaFinalizacion" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="80" uuid="0cce8921-f790-4aa4-b8df-91f9006483a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROBANTE DE PAGO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="5" width="100" height="30" uuid="162fdc1e-b77c-40be-acfb-7f44caa5c7d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FechaCreación:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="120" y="5" width="100" height="30" uuid="5714fc1e-c636-4c80-a2d1-800dd5bd2bbf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="50" width="100" height="30" uuid="c2ebcfbd-3b02-4dbd-b2fb-4110c8b2e30c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="565fc863-c253-4fb9-b494-7a3419031027"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[fechaFinalizacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="100" height="30" uuid="293c6b97-43a1-466a-a0c0-00166e71d1d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e3b8542-2d94-43a3-abf6-b66bbe4dda7e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[fechaInicio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="10" width="100" height="30" uuid="e5e8101a-1209-4b71-9e4d-f5ad3b13422f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e3b8542-2d94-43a3-abf6-b66bbe4dda7e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="50" width="100" height="30" uuid="40c99366-b22c-4987-b23b-738e22587699">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="565fc863-c253-4fb9-b494-7a3419031027"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaFinalizacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

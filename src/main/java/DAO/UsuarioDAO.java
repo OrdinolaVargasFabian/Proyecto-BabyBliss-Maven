@@ -32,4 +32,15 @@ public class UsuarioDAO extends Conexion{
         }        
         return usuario;
     }
+    
+    public void adquirirMembresia(int id) {
+        String consulta = "UPDATE usuario SET membresia = '2' WHERE idUsuario = ?;";
+        try {
+            ps = con.prepareStatement(consulta);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

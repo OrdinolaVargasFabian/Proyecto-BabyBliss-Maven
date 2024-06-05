@@ -14,7 +14,7 @@
         <%--CSS Tablas Dinamicas--%>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"/>
         <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-        
+
         <%--JS Tablas Dinamicas--%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
@@ -25,7 +25,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-        
+
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
@@ -47,46 +47,49 @@
         <title>BabyBliss</title>
     </head>
     <body style="background: linear-gradient(to right, lightcyan, lightpink); padding-top: 12%;">
-            <%
-                session = request.getSession(false);
+        <%
+            session = request.getSession(false);
 
-                //Se inicializa la variable perfil_usuario - 0: No hay usuario, 1: Usuario, 2: Especialista
-                int perfil_usuario = 0;
-                String nombre_completo = null;
+            //Se inicializa la variable perfil_usuario - 0: No hay usuario, 1: Usuario, 2: Especialista
+            int perfil_usuario = 0;
+            String nombre_completo = null;
 
-                int membresia = 0;
-                //Se inicializa la variable marco_premium
-                String marco_premium = "";
-                //Se inicializa la variable corona para el nombre de los usuarios premium
-                String corona = "";
-                
-                //Se verifica si hay una sesion activa
-                if (session.getAttribute("user") == null) {
-                    perfil_usuario = 0;
-                } else {
-                    //se verifica si es un usuario o un especialista
-                    if (session.getAttribute("user").toString().contains("Usuario")) {
-                        // out.print("Usuario");
-                        perfil_usuario = 1;
-                        Usuario usuario = (Usuario) session.getAttribute("user");
+            int membresia = 0;
+            //Se inicializa la variable marco_premium
+            String marco_premium = "";
+            //Se inicializa la variable corona para el nombre de los usuarios premium
+            String corona = "";
 
-                        nombre_completo = usuario.getNombre() + " " + usuario.getAppat() + " " + usuario.getApmat();
+            //Se verifica si hay una sesion activa
+            if (session.getAttribute("user") == null) {
+                perfil_usuario = 0;
+            } else {
+                //se verifica si es un usuario o un especialista
+                if (session.getAttribute("user").toString().contains("Usuario")) {
+                    // out.print("Usuario");
+                    perfil_usuario = 1;
+                    Usuario usuario = (Usuario) session.getAttribute("user");
 
-                        if (usuario.getMembresia() != 0){
-                            membresia = usuario.getMembresia();
-                        }
-
-                        marco_premium = membresia == 2 ? "border border-warning rounded-circle border-2" : "";
-                        corona = membresia == 2 ? "<i class='bx bxs-crown text-warning me-2'></i>" : "";
-                    } else if (session.getAttribute("user").toString().contains("Especialista")) {
-                        // out.print("Especialista");
-                        perfil_usuario = 2;
-                        Especialista especialista = (Especialista) session.getAttribute("user");
-
-                        nombre_completo = especialista.getNombre() + " " + especialista.getAppat() + " " + especialista.getApmat();
+                    nombre_completo = usuario.getNombre() + " " + usuario.getAppat() + " " + usuario.getApmat();
+        %>
+        <input type="hidden" name="idUsuario" id="idUsuario" value="<%=usuario.getId()%>">
+        <%
+                    if (usuario.getMembresia() != 0) {
+                        membresia = usuario.getMembresia();
                     }
+
+                    marco_premium = membresia == 2 ? "border border-warning rounded-circle border-2" : "";
+                    corona = membresia == 2 ? "<i class='bx bxs-crown text-warning me-2'></i>" : "";
+                } else if (session.getAttribute("user").toString().contains("Especialista")) {
+                    // out.print("Especialista");
+                    perfil_usuario = 2;
+                    Especialista especialista = (Especialista) session.getAttribute("user");
+
+                    nombre_completo = especialista.getNombre() + " " + especialista.getAppat() + " " + especialista.getApmat();
                 }
-            %>
+            }
+        %>
+
         <div class="fixed-top">
             <%--Barra principal--%>
             <div class="d-flex justify-content-between align-items-center p-2" style="background: linear-gradient(to right, #C99FF4, #EDCEE9);">
@@ -95,7 +98,7 @@
                     <img src="../babybliss_logo.png" alt="BabyBliss" style="width: 70px">
                     <h2 class="ms-3" style='font-family: "Yellowtail", cursive; font-size: 50px;'>BabyBliss</h2>
                 </a>
-            
+
                 <div class="d-inline-flex gap-4 align-items-center">
                     <%--Menu desplegable de carrito de compras--%>
                     <div class="dropdown">
@@ -123,34 +126,34 @@
                     <div class="dropdown">
                         <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <%
-                            out.print("<img src='../default.png' alt='' style='width: 50px' class='rounded-circle "+marco_premium+"'>");
+                                out.print("<img src='../default.png' alt='' style='width: 50px' class='rounded-circle " + marco_premium + "'>");
                             %>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasMiPerfil" role="button" aria-controls="offcanvasMiPerfil"><i class='bx bxs-user-circle me-2'></i>Mi cuenta</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <%
-                                //Se verifica si el usuario tiene una membresia
-                                if (membresia != 2 && perfil_usuario != 2) {
-                            %>
+                                <%
+                                    //Se verifica si el usuario tiene una membresia
+                                    if (membresia != 2 && perfil_usuario != 2) {
+                                %>
                             <li><button class="dropdown-item" data-bs-toggle='modal' data-bs-target='#mdlAquirirMembresia'><i class='bx bxs-crown me-2'></i>Suscribirse</button></li>
                             <li><hr class="dropdown-divider"></li>
-                            <%
-                                //Se verifica si es un especialista para la opción de crear una guia
-                                } 
-                                if (perfil_usuario == 2) {
-                            %>
+                                <%
+                                        //Se verifica si es un especialista para la opción de crear una guia
+                                    }
+                                    if (perfil_usuario == 2) {
+                                %>
                             <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasAgregarGuia" role="button" aria-controls="offcanvasAgregarGuia"><i class='bx bxs-pen me-2'></i>Redactar Guia</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <%
-                                }
-                            %>
+                                <%
+                                    }
+                                %>
                             <li><a class="dropdown-item" href="../srvIniciarSesion?accion=cerrar"><i class='bx bx-log-out me-2'></i>Cerrar Sesión</a></li>
                         </ul>
                     </div>
                     <%
                         //Si no hay un usuario logueado se muestra el boton de acceder
-                        } else {
+                    } else {
                     %>
                     <a href="login.jsp" class="btn btn-outline-primary"><i class='bx bx-user-circle me-1'></i>Acceder</a>
                     <%
@@ -173,8 +176,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
                 </li> 
-                <%
-                    //Se verifica si el usuario tiene una membresia
+                <%                    //Se verifica si el usuario tiene una membresia
                     if (membresia == 2) {
                 %>
                 <%--(MEMBRESIA HABILITADA)--%>
@@ -185,8 +187,8 @@
                     }
                 %>
             </ul>
-            <% 
-                if (perfil_usuario == 2){
+            <%
+                if (perfil_usuario == 2) {
             %>
             <%@ include file="../componentes/especialista/offcanvasAgregarGuia.jsp" %>
             <%
