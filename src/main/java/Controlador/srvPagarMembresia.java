@@ -39,12 +39,12 @@ public class srvPagarMembresia extends HttpServlet {
         BoletaSuscripcion datosBoleta = dao.obtenerDetallesPagoMembresia(id);
         System.out.println(datosBoleta);
         JRDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(datosBoleta));
-        JasperReport jasperReport = JasperCompileManager.compileReport("JasperReports/BoletaMembresia.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("/JasperReports/BoletaMembresia.jrxml"));
         
         Map<String, Object> parameters = new HashMap<String, Object>();
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "JasperReports/boleta.pdf");
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "/JasperReports/boleta.pdf");
         
         response.sendRedirect("Vista/index.jsp");
     }
