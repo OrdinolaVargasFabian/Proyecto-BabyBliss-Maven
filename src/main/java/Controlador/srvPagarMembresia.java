@@ -30,23 +30,40 @@ public class srvPagarMembresia extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, JRException {
         response.setContentType("text/html;charset=UTF-8");
-        int id = Integer.parseInt(request.getParameter("id"));
-        UsuarioDAO usu = new UsuarioDAO();
-        BoletaSuscripcionDAO dao = new BoletaSuscripcionDAO();
-        usu.adquirirMembresia(id);
-        dao.registrarPagoMembresia(id);
+        try {
+            //Obtiene el ID del usuario que realizo el pago
+            int id = Integer.parseInt(request.getParameter("id"));
+            UsuarioDAO usu = new UsuarioDAO();
+            BoletaSuscripcionDAO dao = new BoletaSuscripcionDAO();
+            //Actualiza la membresia que posee el cliente
+            usu.adquirirMembresia(id);
+            //Registra la boleta en la BD
+            dao.registrarPagoMembresia(id);
+
+            BoletaSuscripcion datosBoleta = dao.obtenerDetallesPagoMembresia(id);
+            System.out.println(datosBoleta);
+            JRDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(datosBoleta));
+            JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("\\JasperReports\\BoletaMembresia.jrxml"));
+
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Obtiene la ruta absoluta del directorio raíz de la aplicación
+            String rootPath = getServletContext().getRealPath("/");
+            // Construye la ruta al directorio
+            String reportsDirPath = rootPath + "export";
+            
+            //Se le da un nombre al pdf
+            String nombreBoleta = "";
+            
+            JasperExportManager.exportReportToPdfFile(jasperPrint, reportsDirPath + "\\boleta.pdf");
+
+            response.sendRedirect("Vista/index.jsp");
+        } catch (JRException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al generar el reporte de membresía.");
+        }
         
-        BoletaSuscripcion datosBoleta = dao.obtenerDetallesPagoMembresia(id);
-        System.out.println(datosBoleta);
-        JRDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(datosBoleta));
-        JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("/JasperReports/BoletaMembresia.jrxml"));
-        
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "/JasperReports/boleta.pdf");
-        
-        response.sendRedirect("Vista/index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

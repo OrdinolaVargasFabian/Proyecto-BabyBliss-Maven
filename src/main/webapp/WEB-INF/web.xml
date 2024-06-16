@@ -4,9 +4,17 @@
         <servlet-name>srvPagarMembresia</servlet-name>
         <servlet-class>Controlador.srvPagarMembresia</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvCarrito</servlet-name>
+        <servlet-class>Controlador.srvCarrito</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvPagarMembresia</servlet-name>
         <url-pattern>/srvPagarMembresia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvCarrito</servlet-name>
+        <url-pattern>/srvCarrito</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
