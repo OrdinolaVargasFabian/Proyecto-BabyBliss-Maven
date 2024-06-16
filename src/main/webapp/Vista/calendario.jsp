@@ -2,7 +2,7 @@
 <html>
 <link href="../CSS/calendario.css" rel="stylesheet" type="text/css"/>   
    <body>
-      <div class="container">
+      <div class="cont">
       <div class="left">
         <div class="calendar">
           <div class="month">

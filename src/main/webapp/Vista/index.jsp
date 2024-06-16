@@ -44,7 +44,7 @@
              ¡Nuestra tienda está llena de amor y ternura para tu familia! 
              Adelante, descubre el mundo de dulzura que hemos preparado para ti y tu bebé.
            </p>
-           <a href="#" class="btn-1">¡Descrube quienes somos!</a><!-- LINK DESCRIPCIÓN WEB--> 
+           <a href="pagoTarjeta.jsp" class="btn-1">¡Descrube quienes somos!</a><!-- LINK DESCRIPCIÓN WEB--> 
       </div>
     </header> 
     <!-------------------------------------------- DETALLES ---------------------------------------------------------------------------------------------> 

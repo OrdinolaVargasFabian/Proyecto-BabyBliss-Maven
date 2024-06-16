@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+  font-family: 'Poppins', sans-serif;
+  margin:0; padding:0;
+  box-sizing: border-box;
+  outline: none; border:none;
+  text-transform: capitalize;
+  transition: all .2s linear;
+}
+
+.cont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:10px;
+  min-height: 30vh;
+}
+
+.cont form{
+  padding:20px;
+  width:900px;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  border-radius: 5px;
+}
+
+.cont form .content{
+  display: flex;
+  flex-wrap: wrap;
+  gap:15px;
+}
+
+.cont form .content .col{
+  flex:1 1 250px;
+}
+
+.cont form .content .col .title{
+  font-size: 20px;
+  color:#333;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.cont form .content .col .input{
+  margin:15px 0;
+}
+
+.cont form .content .col .input span{
+  margin-bottom: 10px;
+  display: block;
+}
+
+.cont form .content .col .input input{
+  width: 100%;
+  border:1px solid #ccc;
+  padding:10px 15px;
+  font-size: 15px;
+  text-transform: none;
+}
+
+.cont form .content .col .input input:focus{
+  border:1px solid #000;
+}
+
+.cont form .content .col .flex{
+  display: flex;
+  gap:15px;
+}
+
+.cont form .content .col .flex .input{
+  margin-top: 5px;
+}
+
+.cont form .content .col .input img{
+  height: 34px;
+  margin-top: 5px;
+  filter: drop-shadow(0 0 1px #000);
+}
+
+.cont form .submit-btn{
+  width: 100%;
+  padding:12px;
+  font-size: 17px;
+  background: #27ae60;
+  color:#fff;
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cont form .submit-btn:hover{
+  background: #2ecc71;
+}
