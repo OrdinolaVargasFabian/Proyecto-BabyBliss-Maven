@@ -9,13 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.BoletaSuscripcionDAO;
 import DAO.UsuarioDAO;
 import Modelo.BoletaSuscripcion;
-import java.util.Collections;
+import Modelo.Usuario;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -30,40 +36,67 @@ public class srvPagarMembresia extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, JRException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        //Obtiene el ID del usuario que realizo el pago
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        UsuarioDAO usu = new UsuarioDAO();
+        BoletaSuscripcionDAO dao = new BoletaSuscripcionDAO();
+        
+        //Actualiza la membresia que posee el cliente
+        usu.adquirirMembresia(id);
+        //Registra los datos de la boleta en la BD
+        dao.registrarPagoMembresia(id);
+        //Obtiene los datos
+        BoletaSuscripcion datosBoleta = dao.obtenerDetallesPagoMembresia(id);
+        System.out.println(datosBoleta);
+        
+        //Genera la boleta
         try {
-            //Obtiene el ID del usuario que realizo el pago
-            int id = Integer.parseInt(request.getParameter("id"));
-            UsuarioDAO usu = new UsuarioDAO();
-            BoletaSuscripcionDAO dao = new BoletaSuscripcionDAO();
-            //Actualiza la membresia que posee el cliente
-            usu.adquirirMembresia(id);
-            //Registra la boleta en la BD
-            dao.registrarPagoMembresia(id);
+            //Recupera los datos del usuario actual
+            HttpSession session = request.getSession();
+            Usuario usuario = (Usuario) session.getAttribute("user");
+            String nombreCompleto = usuario.getNombre() + " " + usuario.getAppat() + " " + usuario.getApmat();
+            
+            //Se crea una lista de mapas para llenar los datos de la tabla, cada Map dentro de List equivale a una fila
+            List<Map<String, Object>> listaFields = new ArrayList<>();
+            Map<String, Object> fields = new HashMap<String, Object>();
+            fields.put("descripcion", "Membresia BabyGold");
+            fields.put("precio", 9.99);
+            listaFields.add(fields);
+            
+            JRDataSource dataSource = new JRBeanCollectionDataSource(listaFields);
+            JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("\\JasperReports\\ComprobantePagoMembresia.jrxml"));
 
-            BoletaSuscripcion datosBoleta = dao.obtenerDetallesPagoMembresia(id);
-            System.out.println(datosBoleta);
-            JRDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(datosBoleta));
-            JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("\\JasperReports\\BoletaMembresia.jrxml"));
-
+            //Se obtiene la fecha actual
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String fechaActual = LocalDateTime.now().format(formatoFecha);
+            
+            //Se insertan los parametros que posee el jrxml
             Map<String, Object> parameters = new HashMap<String, Object>();
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+            parameters.put("NombreCompleto", nombreCompleto);
+            parameters.put("Fecha", fechaActual);
+            parameters.put("ds", dataSource);
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
-            // Obtiene la ruta absoluta del directorio raíz de la aplicación
+            //Se le da un nombre al pdf
+            String nombreBoleta = "Boleta_Membresia_" + usuario.getAppat() + usuario.getApmat() + usuario.getNombre() + "_" + fechaActual + ".pdf";
+            System.out.println(nombreBoleta);
+
+            //Se obtiene la ruta absoluta del directorio raíz de la aplicación
             String rootPath = getServletContext().getRealPath("/");
-            // Construye la ruta al directorio
+            //Se construye la ruta a la carpeta export
             String reportsDirPath = rootPath + "export";
             
-            //Se le da un nombre al pdf
-            String nombreBoleta = "";
-            
-            JasperExportManager.exportReportToPdfFile(jasperPrint, reportsDirPath + "\\boleta.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, reportsDirPath + "\\" + nombreBoleta);
 
             response.sendRedirect("Vista/index.jsp");
         } catch (JRException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al generar el reporte de membresía.");
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
