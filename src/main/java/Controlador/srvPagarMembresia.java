@@ -69,14 +69,15 @@ public class srvPagarMembresia extends HttpServlet {
             JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("\\JasperReports\\ComprobantePagoMembresia.jrxml"));
 
             //Se obtiene la fecha actual
-            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
             String fechaActual = LocalDateTime.now().format(formatoFecha);
             
             //Se insertan los parametros que posee el jrxml
             Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("NombreCompleto", nombreCompleto);
-            parameters.put("Fecha", fechaActual);
             parameters.put("ds", dataSource);
+            parameters.put("Total", 9.99);
+
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
@@ -89,9 +90,18 @@ public class srvPagarMembresia extends HttpServlet {
             //Se construye la ruta a la carpeta export
             String reportsDirPath = rootPath + "export";
             
+            //Se exporta el pdf en el servidor
             JasperExportManager.exportReportToPdfFile(jasperPrint, reportsDirPath + "\\" + nombreBoleta);
 
-            response.sendRedirect("Vista/index.jsp");
+            response.reset();
+            
+            //Se configura la respuesta para la descarga del archivo
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + nombreBoleta + "\"");
+
+            //Se escribe el PDF directamente en el flujo de salida de la respuesta
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            System.out.println("Descarga exitosa");
         } catch (JRException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al generar el reporte de membresía.");
