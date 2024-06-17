@@ -7,6 +7,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +17,7 @@ public class ProductoDAO extends Conexion{
         ArrayList<Producto> lista = new ArrayList<Producto>();
 
         try {
-            String sql = "*select * from Producto";
+            String sql = "select * from producto";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -28,7 +29,7 @@ public class ProductoDAO extends Conexion{
                 obj.setPrecio(rs.getDouble("precio"));
                 obj.setStock(rs.getInt("stock"));
                 obj.setImagen(rs.getString("imagen"));
-                obj.setCategoria(rs.getString("categoria"));
+                
                 lista.add(obj);
             }
         } catch (Exception e) {
@@ -69,7 +70,7 @@ public class ProductoDAO extends Conexion{
                 obj.setPrecio(rs.getDouble("precio"));
                 obj.setStock(rs.getInt("stock"));
                 obj.setImagen(rs.getString("imagen"));
-                obj.setCategoria(rs.getString("categoria"));               
+                              
             }
         } catch (Exception e) {
             //cerrar la cadena de conexion
@@ -94,28 +95,6 @@ public class ProductoDAO extends Conexion{
 
     int r = 0;
 
-    public List buscar(String nombre) {
-        List list = new ArrayList();
-        String sql = "select * from producto where Nombres like '%" + nombre + "%'";
-        try {
-
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Producto p = new Producto();
-                p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setImagen(rs.getString(3));
-//                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(6));
-                list.add(p);
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
 
     public Producto listarId(int id) {
         Producto p = new Producto();
@@ -137,65 +116,22 @@ public class ProductoDAO extends Conexion{
         return p;
     }
 
-    public List listar() {
-        List lista = new ArrayList();
-        String sql = "select * from producto";
-        try {
-            ps = con.prepareStatement(sql);
+  public List listar(){
+        List<Producto> lista = new ArrayList<>();
+        String SQL = "SELECT imagen, nombre, descripcion, precio FROM producto order by nombre asc";
+        try {           
+            ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Producto p = new Producto();
-                p.setId(rs.getInt(1));
+                p.setImagen(rs.getString(1));
                 p.setNombre(rs.getString(2));
-                p.setImagen(rs.getString(3));
-//                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(6));
+                p.setDescripcion(rs.getString(3));
+                p.setPrecio(rs.getInt(4));               
                 lista.add(p);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return lista;
     }
-
-    public void listarImg(int id, HttpServletResponse response) {
-        String sql = "select * from producto where IdProducto=" + id;
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-        BufferedInputStream bufferedInputStream = null;
-        BufferedOutputStream bufferedOutputStream = null;
-        response.setContentType("image/*");
-        try {
-            outputStream = response.getOutputStream();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                inputStream = rs.getBinaryStream("Foto");
-            }
-            bufferedInputStream = new BufferedInputStream(inputStream);
-            bufferedOutputStream = new BufferedOutputStream(outputStream);
-            int i = 0;
-            while ((i = bufferedInputStream.read()) != -1) {
-                bufferedOutputStream.write(i);
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    public int AgregarNuevoProducto(Producto p) {
-        String sql = "insert into producto(Nombres,Foto,Descripcion,Precio,Stock)values(?,?,?,?,?)";
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, p.getNombre());
-            ps.setString(2, p.getImagen());
-            ps.setString(3, p.getDescripcion());
-            ps.setDouble(4, p.getPrecio());
-            ps.setInt(5, p.getStock());
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
-        return r;
-    }
-
 }

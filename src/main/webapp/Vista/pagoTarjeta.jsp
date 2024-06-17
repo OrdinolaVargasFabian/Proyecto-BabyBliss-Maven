@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-<input type="submit" value="Pagar" class="submit-btn" id="pagarBtn">
+<input type="submit" onclick="adquirirMembresia()" value="Pagar" class="submit-btn" id="pagarBtn">
         </form>
     </div>     
 
@@ -77,6 +77,26 @@
         alert('¡Gracias por comprar la membresía BabyGold! Será redirigido al inicio.');
         window.location.href = "index.jsp"; // Redirigir al usuario al inicio
     });
+    
+    function adquirirMembresia() {
+        var id = $('#idUsuario').val();
+        $.ajax({
+            type: "POST",
+            url: "../srvPagarMembresia?id="+id,
+            beforeSend: function () {
+                swal.fire({
+                    title: 'ESPERA',
+                    html: 'Procesando...',
+                    didOpen: () => {
+                        swal.showLoading()
+                    }
+                })
+            },
+            success: function (data, textStatus, jqXHR) {
+                
+            }
+        });
+    }
 </script>
     
 </body>
