@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.cont {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el formulario */
+form {
+    margin-top: 20px;
+}
+.buttom{
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+   justify-content: center;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para la imagen del banco */
+.logo-banco {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Estilos para el mensaje de espera */
+.mensaje-espera {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+}
+.msj{
+    text-align: center;
+    color: #4131A7;
+    font-weight: bold;
+}
