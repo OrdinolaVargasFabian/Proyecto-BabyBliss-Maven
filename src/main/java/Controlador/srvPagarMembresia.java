@@ -59,6 +59,8 @@ public class srvPagarMembresia extends HttpServlet {
             Usuario usuario = (Usuario) session.getAttribute("user");
             String nombreCompleto = usuario.getNombre() + " " + usuario.getAppat() + " " + usuario.getApmat();
             
+            usuario.setMembresia(2);
+            
             //Se crea una lista de mapas para llenar los datos de la tabla, cada Map dentro de List equivale a una fila
             List<Map<String, Object>> listaFields = new ArrayList<>();
             Map<String, Object> fields = new HashMap<String, Object>();
@@ -98,20 +100,22 @@ public class srvPagarMembresia extends HttpServlet {
             //Se exporta el pdf en el servidor
             JasperExportManager.exportReportToPdfFile(jasperPrint, rootPath + "\\" + nombreBoleta);
             
-            try {
-                emailSender enviarCorreo = new emailSender();
-                enviarCorreo.enviarCorreo("Prueba", "fabianordinola25@gmail.com");
-                System.out.println("Correo enviado correctamente");
-            } catch (MessagingException e) {
-                e.printStackTrace();
-                System.out.println("Error al enviar el correo");
-            }
+//            try {
+//                emailSender enviarCorreo = new emailSender();
+//                enviarCorreo.enviarCorreo("Prueba", "fabianordinola25@gmail.com");
+//                System.out.println("Correo enviado correctamente");
+//            } catch (MessagingException e) {
+//                e.printStackTrace();
+//                System.out.println("Error al enviar el correo");
+//            }
             
             response.reset();
             
             //Se configura la respuesta para la descarga del archivo
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + nombreBoleta + "\"");
+            
+            
 
             //Se escribe el PDF directamente en el flujo de salida de la respuesta
             JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());

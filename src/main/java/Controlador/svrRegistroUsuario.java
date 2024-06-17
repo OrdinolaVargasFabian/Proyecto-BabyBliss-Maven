@@ -96,7 +96,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     out.println("<html><body>");
     out.println("<script type='text/javascript'>");
     out.println("alert('Usuario registrado exitosamente.');");
-    out.println("window.location.href = 'Vista/index.jsp';");
+    out.println("window.location.href = 'Vista/login.jsp';");
     out.println("</script>");
     out.println("</body></html>");
     out.close();

@@ -76,9 +76,7 @@
                 document.getElementById('formulario').style.display = 'none';
                 document.getElementById('mensaje').style.display = 'block';
 
-                setTimeout(function() {
-                    window.location.href = "index.jsp";
-                }, 8000); // Redireccionar al index después de 8 segundos
+                
             });
             
             function adquirirMembresia() {
@@ -96,7 +94,15 @@
                         })
                     },
                     success: function (data, textStatus, jqXHR) {
-                        
+                        swal.fire({
+                            title: '¡Felicidades!',
+                            text: 'Membresia adquiridad',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        setTimeout(function() {
+                            window.location.href = "index.jsp";
+                        }, 8000); // Redireccionar al index después de 8 segundos
                     }
                 });
             }

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+0<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.*" %> <!-- Importa la clase Usuario y Especialista -->
 <!DOCTYPE html>
 <html>
@@ -102,97 +102,15 @@
                 <div class="d-inline-flex gap-4 align-items-center">
                     <%--Menu desplegable de carrito de compras--%>
                     <div class="dropdown">
-                        <a class="btn rounded-pill btn-icon btn-secondary float-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        
+                        <a class="btn rounded-pill btn-cart-icon btn-secondary float-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class='bx bxs-baby-carriage' style="font-size: 20px;"></i>
                         </a>
                         <ul class="text-center dropdown-menu" style="width: 200px">
-                            <li class="dropdown-item">VACIO</li>
-                            <li class="dropdown-item">VACIO</li>
+                            
                         </ul>
-                        <!---<script>
-                            const showHTML = () => {
-                            if (!allProducts.length) {
-                            cartEmpty.classList.remove('hidden');
-                            rowProduct.classList.add('hidden');
-                            cartTotal.classList.add('hidden');
-                            } else {
-                            cartEmpty.classList.add('hidden');
-                            rowProduct.classList.remove('hidden');
-                            cartTotal.classList.remove('hidden');
-                            }
-
-                            // Limpiar HTML
-                            rowProduct.innerHTML = '';
-                            // inicializa el total del carrito
-                            let total = 0;
-                            let totalOfProducts = 0;
-                            allProducts.forEach(product => {
-                            const containerProduct = document.createElement('div');
-                            containerProduct.classList.add('cart-product');
-                            containerProduct.innerHTML = `
-                <div class="info-cart-product">
-                    <span class="cantidad-producto-carrito" method="POST">${product.quantity}</span>
-                    <p class="titulo-producto-carrito" method="POST">${product.title}</p>
-                    <span class="precio-producto-carrito" method="POST">${product.price}</span>
-                </div>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="icon-close"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                    />
-                </svg>
-            `;
-                            rowProduct.append(containerProduct);
-                            // funcion para sacar el total final del cliente
-                            total = total + parseInt(product.quantity * product.price.slice(1));
-                            totalOfProducts = totalOfProducts + product.quantity;
-                            });
-                            valorTotal.innerText = `S/. ${total}.00`;
-                            countProducts.innerText = totalOfProducts;
-                            };
-                            //Mantener el menú de navegación
-
-
-
-                            document.addEventListener('DOMContentLoaded', function () {
-                            document.querySelector('#titulo-menu').addEventListener('click', () => {
-                            window.scrollTo({
-                            top: 450,
-                                    behavior: "smooth"
-                            });
-                            });
-                            document.querySelector('#IrBebidas').addEventListener('click', () => {
-                            window.scrollTo({
-                            top: 3650,
-                                    behavior: "smooth"
-                            });
-                            });
-                            });
-                            document.getElementById("btn_menu").addEventListener("click", mostrar_menu);
-                            document.getElementById("back_menu").addEventListener("click", ocultar_menu);
-                            nav = document.getElementById("nav");
-                            background_menu = document.getElementById("back_menu");
-                            function mostrar_menu() {
-
-                            nav.style.right = "0px";
-                            background_menu.style.display = "block";
-                            }
-
-                            function ocultar_menu() {
-
-                            nav.style.right = "-250px";
-                            background_menu.style.display = "none";
-                            }
-                            });
-                        </script>--->
+                         
+                       
                         <ul class="text-center dropdown-menu" style="width: 200px">
 
                         </ul>
