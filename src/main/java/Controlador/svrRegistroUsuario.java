@@ -91,8 +91,16 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     boolean registrado = registrarDAO.registrarUsuario(nuevoUsuario);
 
     if (registrado) {
-        response.getWriter().write("Usuario registrado exitosamente.");
-    } else {
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    out.println("<html><body>");
+    out.println("<script type='text/javascript'>");
+    out.println("alert('Usuario registrado exitosamente.');");
+    out.println("window.location.href = 'Vista/index.jsp';");
+    out.println("</script>");
+    out.println("</body></html>");
+    out.close();
+} else {
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al registrar usuario.");
     }
 }

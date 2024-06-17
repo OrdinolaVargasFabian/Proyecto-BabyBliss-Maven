@@ -179,7 +179,7 @@
                 </div>
 
                 <center>
-                    <button class="btn btn-lg btn-primary" type="submit">Registrar</button>
+                    <button class="btn btn-lg btn-primary" type="submit" >Registrar</button>
 
                     <div class="mt-3">
                         <p>¿Ya tienes una cuenta? <a href="login.jsp">Iniciar Sesión</a></p>
