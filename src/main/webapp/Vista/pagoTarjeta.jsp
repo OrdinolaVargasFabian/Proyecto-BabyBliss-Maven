@@ -65,48 +65,38 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <input type="submit" value="Pagar" class="submit-btn">
+                <input type="submit" value="Pagar" class="submit-btn" onclick="adquirirMembresia()" id="pagarBtn">
             </form>
         </div>     
-    </body>
-=======
-            </div>
-<input type="submit" onclick="adquirirMembresia()" value="Pagar" class="submit-btn" id="pagarBtn">
-        </form>
-    </div>     
+        <script>
+            document.getElementById('pagarBtn').addEventListener('click', function(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe automáticamente
 
-<script>
-    document.getElementById('pagarBtn').addEventListener('click', function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe automáticamente
-
-        // Mostrar mensaje en ventana emergente
-        alert('¡Gracias por comprar la membresía BabyGold! Será redirigido al inicio.');
-        window.location.href = "index.jsp"; // Redirigir al usuario al inicio
-    });
-    
-    function adquirirMembresia() {
-        var id = $('#idUsuario').val();
-        $.ajax({
-            type: "POST",
-            url: "../srvPagarMembresia?id="+id,
-            beforeSend: function () {
-                swal.fire({
-                    title: 'ESPERA',
-                    html: 'Procesando...',
-                    didOpen: () => {
-                        swal.showLoading()
+                // Mostrar mensaje en ventana emergente
+                alert('¡Gracias por comprar la membresía BabyGold! Será redirigido al inicio.');
+                window.location.href = "index.jsp"; // Redirigir al usuario al inicio
+            });
+            
+            function adquirirMembresia() {
+                var id = $('#idUsuario').val();
+                $.ajax({
+                    type: "POST",
+                    url: "../srvPagarMembresia?id="+id,
+                    beforeSend: function () {
+                        swal.fire({
+                            title: 'ESPERA',
+                            html: 'Procesando...',
+                            didOpen: () => {
+                                swal.showLoading()
+                            }
+                        })
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        
                     }
-                })
-            },
-            success: function (data, textStatus, jqXHR) {
-                
+                });
             }
-        });
-    }
-</script>
-    
-</body>
->>>>>>> 50fe95a9e28681da220d2c57069b961b86c3527c
+        </script>
+    </body>
 </html>
 <%@ include file="footer.jsp" %> <!-- Incorpora el código del archivo footer -->
