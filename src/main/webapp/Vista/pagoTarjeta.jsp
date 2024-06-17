@@ -65,9 +65,28 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <input type="submit" value="Pagar" class="submit-btn">
             </form>
         </div>     
     </body>
+=======
+            </div>
+<input type="submit" value="Pagar" class="submit-btn" id="pagarBtn">
+        </form>
+    </div>     
+
+<script>
+    document.getElementById('pagarBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+        // Mostrar mensaje en ventana emergente
+        alert('¡Gracias por comprar la membresía BabyGold! Será redirigido al inicio.');
+        window.location.href = "index.jsp"; // Redirigir al usuario al inicio
+    });
+</script>
+    
+</body>
+>>>>>>> 50fe95a9e28681da220d2c57069b961b86c3527c
 </html>
 <%@ include file="footer.jsp" %> <!-- Incorpora el código del archivo footer -->
