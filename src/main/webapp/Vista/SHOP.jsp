@@ -126,6 +126,87 @@
                         <button class="btn-add-cart" data-name="Pañales babysec" data-price="10.00">Añadir al carrito</button>
                     </div>
                 </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/FormulaBEBA.png" alt="producto"/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Formula BEBA</h2>
+                        <p class="price">$17.00</p>
+                        <button class="btn-add-cart" data-name="Formula BEBA" data-price="17.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/PackCuidado.png" alt="producto"/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Pack Higiene</h2>
+                        <p class="price">$42.00</p>
+                        <button class="btn-add-cart" data-name="Pack Higiene" data-price="42.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/PelucheBabyBliss.png" alt=""/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Peluche BabyBliss</h2>
+                        <p class="price">$18.00</p>
+                        <button class="btn-add-cart" data-name="Peluche BabyBliss" data-price="18.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/biberonBlue.png" alt=""/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Biberon Blue</h2>
+                        <p class="price">$8.00</p>
+                        <button class="btn-add-cart" data-name="Biberon Blue" data-price="8.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/cocheBabyBliss.png" alt=""/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Coche BabyBliss</h2>
+                        <p class="price">$50.00</p>
+                        <button class="btn-add-cart" data-name="Coche BabyBliss" data-price="50.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/johnsonbabyPACK.png" alt=""/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Pack Johnson Baby</h2>
+                        <p class="price">$28.00</p>
+                        <button class="btn-add-cart" data-name="Pack Johnson Baby" data-price="28.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/megapack2.png" alt=""/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Mega Pack 2</h2>
+                        <p class="price">$288.00</p>
+                        <button class="btn-add-cart" data-name="Mega Pack 2" data-price="288.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/Productos/megapackBabybliss.png" alt=""/>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Mega Pack BabyBliss</h2>
+                        <p class="price">$298.00</p>
+                        <button class="btn-add-cart" data-name="Mega Pack BabyBliss" data-price="298.00">Añadir al carrito</button>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
