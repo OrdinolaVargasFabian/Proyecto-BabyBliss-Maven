@@ -4,7 +4,6 @@
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="header.jsp" %> <!-- Incorpora el código del archivo header -->
 <!doctype html>
 <html>

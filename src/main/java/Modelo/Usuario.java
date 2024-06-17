@@ -14,7 +14,24 @@ public class Usuario {
     private int telefono;
     private int membresia;
 
-    public Usuario() {}
+    
+
+    public Usuario(String nombre, String appat, String apmat, int dni, Date fechaNac, int telefono, String correo, String contrasena) {
+     this.nombre = nombre;
+        this.appat = appat;
+        this.apmat = apmat;
+        this.dni = dni;
+        this.fechaNac = fechaNac;
+        this.correo = correo;
+        this.password = password;
+        this.telefono = telefono;
+    }
+
+    public Usuario() {
+        
+    }
+
+    
 
     public int getId() {
         return id;

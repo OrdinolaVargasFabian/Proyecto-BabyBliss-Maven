@@ -68,7 +68,7 @@
                 <input type="file" id="evidencia" name="evidencia" accept="image/*" required>
  
                 <br><br>
-                <input type="submit" value="Enviar" id="enviarBtn">
+                <input type="submit" onclick="adquirirMembresia()" value="Enviar" id="enviarBtn">
             </form>
         </div>
     </div>
@@ -81,6 +81,26 @@
         alert('¡Gracias por comprar la membresía BabyGold! Será redirigido al inicio.');
         window.location.href = "index.jsp";
     });
+    
+    function adquirirMembresia() {
+        var id = $('#idUsuario').val();
+        $.ajax({
+            type: "POST",
+            url: "../srvPagarMembresia?id="+id,
+            beforeSend: function () {
+                swal.fire({
+                    title: 'ESPERA',
+                    html: 'Procesando...',
+                    didOpen: () => {
+                        swal.showLoading()
+                    }
+                })
+            },
+            success: function (data, textStatus, jqXHR) {
+                
+            }
+        });
+    }
 </script>
 
 <%@ include file="footer.jsp" %>

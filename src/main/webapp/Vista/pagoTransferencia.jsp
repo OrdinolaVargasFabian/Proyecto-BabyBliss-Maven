@@ -59,7 +59,7 @@
         <input type="file" id="evidencia" name="evidencia" accept="image/*" required>
         <br><br>
         <div class="buttom">
-            <input type="submit" value="Enviar" style="margin-bottom: 10px;"> 
+            <input type="submit" onclick="adquirirMembresia()" value="Enviar" style="margin-bottom: 10px;"> 
             <p class="mensaje-espera">El tiempo de espera para la validación de su compra dependerá de su entidad financiera</p>
         </div>
     </form>
@@ -83,6 +83,26 @@
             window.location.href = "index.jsp";
         }, 8000); // Redireccionar al index después de 8 segundos
     });
+    
+    function adquirirMembresia() {
+        var id = $('#idUsuario').val();
+        $.ajax({
+            type: "POST",
+            url: "../srvPagarMembresia?id="+id,
+            beforeSend: function () {
+                swal.fire({
+                    title: 'ESPERA',
+                    html: 'Procesando...',
+                    didOpen: () => {
+                        swal.showLoading()
+                    }
+                })
+            },
+            success: function (data, textStatus, jqXHR) {
+                
+            }
+        });
+    }
 </script>
 
 </body>
