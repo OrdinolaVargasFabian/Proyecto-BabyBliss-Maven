@@ -72,13 +72,17 @@ public class srvPagarMembresia extends HttpServlet {
             DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
             String fechaActual = LocalDateTime.now().format(formatoFecha);
             
+            //Se obtiene la direccion del logo
+            String imagePath = getServletContext().getRealPath("/") + "babybliss_logo.png";
+            
             //Se insertan los parametros que posee el jrxml
             Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("LogoBabyBliss", imagePath);
             parameters.put("NombreCompleto", nombreCompleto);
             parameters.put("ds", dataSource);
             parameters.put("Total", 9.99);
 
-            
+            //Completa la plantilla jrxml con los datos 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
             //Se le da un nombre al pdf
@@ -91,7 +95,7 @@ public class srvPagarMembresia extends HttpServlet {
             String reportsDirPath = rootPath + "export";
             
             //Se exporta el pdf en el servidor
-            JasperExportManager.exportReportToPdfFile(jasperPrint, reportsDirPath + "\\" + nombreBoleta);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, rootPath + "\\" + nombreBoleta);
 
             response.reset();
             
