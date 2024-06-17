@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -96,7 +97,16 @@ public class srvPagarMembresia extends HttpServlet {
             
             //Se exporta el pdf en el servidor
             JasperExportManager.exportReportToPdfFile(jasperPrint, rootPath + "\\" + nombreBoleta);
-
+            
+            try {
+                emailSender enviarCorreo = new emailSender();
+                enviarCorreo.enviarCorreo("Prueba", "fabianordinola25@gmail.com");
+                System.out.println("Correo enviado correctamente");
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                System.out.println("Error al enviar el correo");
+            }
+            
             response.reset();
             
             //Se configura la respuesta para la descarga del archivo

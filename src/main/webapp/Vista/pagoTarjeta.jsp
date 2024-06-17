@@ -3,7 +3,7 @@
 <html>
     <body>
         <div class="cont">
-            <form action="ConfirmarPagoServlet" method="post"> <!-- Formulario que envía los datos al servlet -->
+            <form action="../ConfirmarPagoServlet" method="post"> <!-- Formulario que envía los datos al servlet -->
                 <div class="content">
                     <div class="col">
                         <h3 class="title">Datos Personales</h3>

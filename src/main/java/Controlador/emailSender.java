@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Modelo;
+package Controlador;
 
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-/**
- *
- * @author Frank
- */
 public class emailSender {
 
     private final String host = "smtp.gmail.com"; // host 
