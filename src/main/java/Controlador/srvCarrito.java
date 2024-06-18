@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package Controlador;
 
 import DAO.ProductoDAO;
@@ -15,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -34,7 +32,7 @@ public class srvCarrito extends HttpServlet {
 
         request.setAttribute("lista", lista);
         request.getRequestDispatcher("/Vista/SHOP.jsp").forward(request, response);
-        response.sendRedirect("Vista/SHOP.jsp");
+       
         System.out.println(lista);
 
     }

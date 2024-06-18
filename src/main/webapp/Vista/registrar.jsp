@@ -148,7 +148,7 @@
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingDNI" name="txtDNI" placeholder="DNI" required>
+                            <input type="number" class="form-control" id="floatingDNI" name="txtDNI" placeholder="DNI" required>
                             <label for="floatingDNI">DNI</label>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="tel" class="form-control" id="floatingTelefono" name="txtTelefono" placeholder="Teléfono" required>
+                            <input type="number" class="form-control" id="floatingTelefono" name="txtTelefono" placeholder="Teléfono" required>
                             <label for="floatingTelefono">Teléfono</label>
                         </div>
                     </div>
