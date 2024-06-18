@@ -1,4 +1,4 @@
-0<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.*" %> <!-- Importa la clase Usuario y Especialista -->
 <!DOCTYPE html>
 <html>
@@ -43,6 +43,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Yellowtail&display=swap" rel="stylesheet">
 
         <link rel="icon" type="image/x-icon" href="../babybliss_logo.png">
+
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
         <title>BabyBliss</title>
     </head>
@@ -92,29 +96,66 @@
 
         <div class="fixed-top">
             <%--Barra principal--%>
-            <div class="d-flex justify-content-between align-items-center p-2" style="background: linear-gradient(to right, #C99FF4, #EDCEE9);">
+            <div class="d-flex justify-content-between align-items-center p-2" style="background: linear-gradient(to right, #C99FF4, #EDCEE9); position: relative;">
                 <%--Logo de BabyBliss--%>
                 <a href="index.jsp" class="d-flex align-items-center" style="text-decoration: none; color: black;">
-                    <img src="../babybliss_logo.png" alt="BabyBliss" style="width: 70px">
+                    <img src="<%=request.getContextPath()%>/babybliss_logo.png" alt="BabyBliss" style="width: 70px">
                     <h2 class="ms-3" style='font-family: "Yellowtail", cursive; font-size: 50px;'>BabyBliss</h2>
                 </a>
 
                 <div class="d-inline-flex gap-4 align-items-center">
+
+                    <style>
+                        .dropdown-menu {
+                            max-height: 300px;
+                            overflow-y: auto;
+                        }
+
+                        #cart-items li {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 5px;
+                            border-bottom: 1px solid #ddd;
+                        }
+
+                        #cart-items button {
+                            background: none;
+                            border: none;
+                            color: red;
+                            cursor: pointer;
+
+
+                            #cuenta-carrito {
+                                background-color: #ff5733; /* Color de fondo llamativo */
+                                color: #ffffff; /* Color del texto */
+                                padding: 2px 8px; /* Espaciado interno */
+                                border-radius: 50%; /* Forma redonda */
+                                font-weight: bold; /* Texto en negrita */
+                                font-size: 14px; /* Tamaño de fuente */
+                                transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones para suavizar cambios */
+                            }
+
+                            #cuenta-carrito:hover {
+                                transform: scale(1.1); /* Aumenta el tamaño cuando se pasa el mouse */
+                                background-color: #ff6f61; /* Cambia el color de fondo al pasar el mouse */
+                            }
+                        }
+                    </style>
+
                     <%--Menu desplegable de carrito de compras--%>
                     <div class="dropdown">
-                        
                         <a class="btn rounded-pill btn-cart-icon btn-secondary float-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class='bx bxs-baby-carriage' style="font-size: 20px;"></i>
+                            <span id="cuenta-carrito">0 </span>
                         </a>
-                        <ul class="text-center dropdown-menu" style="width: 200px">
-                            
+                        <ul id="cart-items" class="text-center dropdown-menu" style="width: 200px">
+                            <!-- Los artículos del carrito se agregarán aquí dinámicamente -->
                         </ul>
-                         
-                       
-                        <ul class="text-center dropdown-menu" style="width: 200px">
 
-                        </ul>
                     </div>
+
+
+
                     <%--Menu desplegable de notificaciones--%>
                     <div class="dropdown">
                         <a class="btn rounded-pill btn-icon btn-secondary float-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -161,7 +202,7 @@
                         //Si no hay un usuario logueado se muestra el boton de acceder
                     } else {
                     %>
-                    <a href="login.jsp" class="btn btn-outline-primary"><i class='bx bx-user-circle me-1'></i>Acceder</a>
+                    <a href="<%=request.getContextPath()%>/Vista/login.jsp" class="btn btn-outline-primary"><i class='bx bx-user-circle me-1'></i>Acceder</a>
                     <%
                         }
                     %>
@@ -171,16 +212,16 @@
             <%--Barra de navegacion--%>
             <ul class="nav justify-content-center nav-pills nav-fill p-3 bg-white">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/Vista/index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="comunidad.jsp"><i class='bx bxs-group me-2'></i>Comunidad de apoyo</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/Vista/comunidad.jsp"><i class='bx bxs-group me-2'></i>Comunidad de apoyo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="SHOP.jsp"><i class='bx bxs-store me-2'></i>Tienda</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/srvCarrito?accion=listar"><i class='bx bxs-store me-2'></i>Tienda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/Vista/calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
                 </li> 
                 <%                    //Se verifica si el usuario tiene una membresia
                     if (membresia == 2) {
