@@ -93,7 +93,7 @@
                 var id = $('#idUsuario').val();
                 $.ajax({
                     type: "POST",
-                    url: "../srvPagarMembresia?id="+id,
+                    url: "../srvPagarMembresia?id=" + id,
                     beforeSend: function () {
                         swal.fire({
                             title: 'ESPERA',
@@ -104,7 +104,16 @@
                         })
                     },
                     success: function (data, textStatus, jqXHR) {
-                        
+                        swal.fire({
+                            title: '¡Felicidades!',
+                            text: 'Tu pago ha sido completado, disfruta tu membresia adquiridad',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.href = "index.jsp";
+                            }
+                        });
                     }
                 });
             }

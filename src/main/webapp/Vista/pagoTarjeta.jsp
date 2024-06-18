@@ -3,7 +3,7 @@
 <html>
     <body>
         <div class="cont">
-            <form action="../ConfirmarPagoServlet" method="post"> <!-- Formulario que envía los datos al servlet -->
+            <form method="post"> <!-- Formulario que envía los datos al servlet -->
                 <div class="content">
                     <div class="col">
                         <h3 class="title">Datos Personales</h3>
@@ -65,9 +65,39 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Pagar" class="submit-btn">
+                <input type="submit" value="Pagar" class="submit-btn" onclick="adquirirMembresia()">
             </form>
-        </div>     
+        </div>
+        <script>
+            function adquirirMembresia() {
+                var id = $('#idUsuario').val();
+                $.ajax({
+                    type: "POST",
+                    url: "../srvPagarMembresia?id=" + id,
+                    beforeSend: function () {
+                        swal.fire({
+                            title: 'ESPERA',
+                            html: 'Procesando...',
+                            didOpen: () => {
+                                swal.showLoading()
+                            }
+                        })
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        swal.fire({
+                            title: '¡Felicidades!',
+                            text: 'Tu pago ha sido completado, disfruta tu membresia adquiridad',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.href = "index.jsp";
+                            }
+                        });
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
 <%@ include file="footer.jsp" %> <!-- Incorpora el código del archivo footer -->

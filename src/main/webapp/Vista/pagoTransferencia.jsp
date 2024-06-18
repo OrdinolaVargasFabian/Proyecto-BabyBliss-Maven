@@ -69,21 +69,21 @@
         </div>
 
         <script>
-            document.getElementById('formulario').addEventListener('submit', function(event) {
+            document.getElementById('formulario').addEventListener('submit', function (event) {
                 event.preventDefault(); // Evitar que el formulario se envíe automáticamente
 
                 // Simulando el envío del formulario y mostrando el mensaje
                 document.getElementById('formulario').style.display = 'none';
                 document.getElementById('mensaje').style.display = 'block';
 
-                
+
             });
-            
+
             function adquirirMembresia() {
                 var id = $('#idUsuario').val();
                 $.ajax({
                     type: "POST",
-                    url: "../srvPagarMembresia?id="+id,
+                    url: "../srvPagarMembresia?id=" + id,
                     beforeSend: function () {
                         swal.fire({
                             title: 'ESPERA',
@@ -96,13 +96,14 @@
                     success: function (data, textStatus, jqXHR) {
                         swal.fire({
                             title: '¡Felicidades!',
-                            text: 'Membresia adquiridad',
+                            text: 'Tu pago ha sido completado, disfruta tu membresia adquiridad',
                             icon: 'success',
                             confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.href = "index.jsp";
+                            }
                         });
-                        setTimeout(function() {
-                            window.location.href = "index.jsp";
-                        }, 8000); // Redireccionar al index después de 8 segundos
                     }
                 });
             }
