@@ -65,38 +65,9 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Pagar" class="submit-btn" onclick="adquirirMembresia()" id="pagarBtn">
+                <input type="submit" value="Pagar" class="submit-btn">
             </form>
         </div>     
-        <script>
-            document.getElementById('pagarBtn').addEventListener('click', function(event) {
-                event.preventDefault(); // Evitar que el formulario se envíe automáticamente
-
-                // Mostrar mensaje en ventana emergente
-                alert('¡Gracias por comprar la membresía BabyGold! Será redirigido al inicio.');
-                window.location.href = "index.jsp"; // Redirigir al usuario al inicio
-            });
-            
-            function adquirirMembresia() {
-                var id = $('#idUsuario').val();
-                $.ajax({
-                    type: "POST",
-                    url: "../srvPagarMembresia?id="+id,
-                    beforeSend: function () {
-                        swal.fire({
-                            title: 'ESPERA',
-                            html: 'Procesando...',
-                            didOpen: () => {
-                                swal.showLoading()
-                            }
-                        })
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        
-                    }
-                });
-            }
-        </script>
     </body>
 </html>
 <%@ include file="footer.jsp" %> <!-- Incorpora el código del archivo footer -->
