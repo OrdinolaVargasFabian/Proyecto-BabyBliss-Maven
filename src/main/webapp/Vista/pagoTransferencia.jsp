@@ -53,7 +53,7 @@
             <p>Nombre: Fabian Ordinola</p>
             <form id="formulario" action="" method="post" enctype="multipart/form-data">
                 <label for="evidencia">Insertar evidencia</label>
-                <input type="file" id="evidencia" name="evidencia" accept="image/*" required>
+                <input type="file" id="evidencia" name="evidencia" accept="image/*" >
                 <br><br>
                 <div class="buttom">
                     <input type="submit" onclick="adquirirMembresia()" value="Enviar" style="margin-bottom: 10px;"> 

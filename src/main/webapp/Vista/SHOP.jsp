@@ -12,223 +12,124 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body>
+         <style>
+        body {
+            font-family: Times New Roman, sans-serif;
+            background: linear-gradient(to right, #d9faff, #ffe6f2);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+         h1 {
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 60px;
+            font-size: 2.5em;
+            color: #ff6699;
+        }
+        
+        .listaProductos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .productos {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .productos:hover {
+            transform: scale(1.05);
+        }
+
+          .productos img {
+            width: 100%;
+            height: auto;
+            max-width: 200px; /* Ajusta el tamaño máximo según sea necesario */
+            max-height: 200px; /* Ajusta el tamaño máximo según sea necesario */
+            min-height: 200px;
+            min-width: 200px;
+            object-fit: contain; /* Asegura que la imagen mantenga su proporción */
+            margin: 0 auto; /* Centra la imagen dentro del contenedor */
+            display: block;
+        }
+        
+        .name-productos {
+            padding: 15px;
+            
+           
+        }
+
+        .name-productos h5 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #ff6699;
+        }
+
+        .name-productos p {
+            margin: 5px 0;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .name-productos a {
+            text-decoration: none;
+            color: #ff6699;
+        }
+
+        .name-productos a:hover {
+            text-decoration: underline;
+        }
+        .add-to-cart {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ff6699;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #ff3366;
+        }
+        h1{
+           padding-bottom: 10px;
+        }
+    </style>
         <h1>Catálogo</h1>
-        <style>
-            /* General container styling */
-            .container-menu {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                margin: 20px;
-                padding: 20px;
-            }
-
-            /* Individual item container */
-            .container-items {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-around;
-            }
-
-            /* Each product item */
-            .item {
-                background-color: #fff;
-                border: 1px solid #ddd;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                margin: 15px;
-                width: 300px;
-                transition: transform 0.3s, box-shadow 0.3s;
-            }
-
-            /* Hover effect on each item */
-            .item:hover {
-                transform: scale(1.05);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            }
-
-            /* Image styling */
-            .item figure img {
-                width: 100%;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
-
-            /* Product information container */
-            .info-product {
-                padding: 15px;
-                text-align: center;
-            }
-
-            /* Product name */
-            .info-product h2 {
-                font-size: 1.5em;
-                margin: 10px 0;
-                color: #333;
-            }
-
-            /* Price styling */
-            .info-product .price {
-                font-size: 1.2em;
-                color: #e91e63;
-                margin: 10px 0;
-            }
-
-            /* Add to cart button */
-            .btn-add-cart {
-                background-color: #e91e63;
-                border: none;
-                border-radius: 5px;
-                color: white;
-                cursor: pointer;
-                font-size: 1em;
-                padding: 10px 20px;
-                text-transform: uppercase;
-                transition: background-color 0.3s;
-            }
-
-            /* Hover effect for button */
-            .btn-add-cart:hover {
-                background-color: #d81b60;
-            }
-
-        </style>
-       <div class="container-menu">
-        <div class="animate__animated animate__bounceIn">
-            <div class="container-items">
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/conjuntobabybliss.jpeg" alt="producto" />
-                    </figure>
-                    <div class="info-product">
-                        <h2>Conjunto 1 para niña</h2>
-                        <p class="price">$15.00</p>
-                        <button class="btn-add-cart" data-name="Conjunto 1 para niña" data-price="15.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/shampoo.babybliss.png" alt="producto" />
-                    </figure>
-                    <div class="info-product">
-                        <h2>Shampoo</h2>
-                        <p class="price">$8.00</p>
-                        <button class="btn-add-cart" data-name="Shampoo" data-price="8.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/pañalesbabybliss.jpeg" alt="producto" />
-                    </figure>
-                    <div class="info-product">
-                        <h2>Pañales babysec</h2>
-                        <p class="price">$10.00</p>
-                        <button class="btn-add-cart" data-name="Pañales babysec" data-price="10.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/FormulaBEBA.png" alt="producto"/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Formula BEBA</h2>
-                        <p class="price">$17.00</p>
-                        <button class="btn-add-cart" data-name="Formula BEBA" data-price="17.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/PackCuidado.png" alt="producto"/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Pack Higiene</h2>
-                        <p class="price">$42.00</p>
-                        <button class="btn-add-cart" data-name="Pack Higiene" data-price="42.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/PelucheBabyBliss.png" alt=""/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Peluche BabyBliss</h2>
-                        <p class="price">$18.00</p>
-                        <button class="btn-add-cart" data-name="Peluche BabyBliss" data-price="18.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/biberonBlue.png" alt=""/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Biberon Blue</h2>
-                        <p class="price">$8.00</p>
-                        <button class="btn-add-cart" data-name="Biberon Blue" data-price="8.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/cocheBabyBliss.png" alt=""/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Coche BabyBliss</h2>
-                        <p class="price">$50.00</p>
-                        <button class="btn-add-cart" data-name="Coche BabyBliss" data-price="50.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/johnsonbabyPACK.png" alt=""/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Pack Johnson Baby</h2>
-                        <p class="price">$28.00</p>
-                        <button class="btn-add-cart" data-name="Pack Johnson Baby" data-price="28.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/megapack2.png" alt=""/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Mega Pack 2</h2>
-                        <p class="price">$288.00</p>
-                        <button class="btn-add-cart" data-name="Mega Pack 2" data-price="288.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                <div class="item">
-                    <figure>
-                        <img src="../IMG/Productos/megapackBabybliss.png" alt=""/>
-                    </figure>
-                    <div class="info-product">
-                        <h2>Mega Pack BabyBliss</h2>
-                        <p class="price">$298.00</p>
-                        <button class="btn-add-cart" data-name="Mega Pack BabyBliss" data-price="298.00">Añadir al carrito</button>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-        <!---<div class="listaProductos">
+        
+        <div class="listaProductos">
         <c:forEach var="p" items="${lista}">
             <div class="productos">
                 <div>
                     <a href="#">
                         <picture>
-                            <img src="Productos/${p.imagen}" alt="${p.nombre}"/>
+                            <img src="IMG/Productos/${p.imagen}" alt="${p.nombre}"/>
                         </picture>
                     </a>
-                    <div class="name-game">
+                    <div class="name-productos">
                         <a href="#" title="${p.nombre}">
                             <h5>${p.nombre}</h5>
                         </a>
                         <p>Descripcion: ${p.descripcion}</p>
-                        <p>Precio: ${p.precio}</p>
+                        <p>Precio: $ ${p.precio}</p>
+                         <button class="add-to-cart">Añadir al carrito</button>
+
                     </div>
                 </div>
             </div>
-        </c:forEach>---->
+        </c:forEach>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

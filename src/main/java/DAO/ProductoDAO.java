@@ -96,25 +96,7 @@ public class ProductoDAO extends Conexion{
     int r = 0;
 
 
-    public Producto listarId(int id) {
-        Producto p = new Producto();
-        String sql = "select * from producto where IdProducto=" + id;
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setImagen(rs.getString(3));
-//                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(6));
-            }
-        } catch (Exception e) {
-        }
-        return p;
-    }
+   
 
   public List listar(){
         List<Producto> lista = new ArrayList<>();
