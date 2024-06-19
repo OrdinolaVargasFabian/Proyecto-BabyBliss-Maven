@@ -1,73 +1,94 @@
 <%@ include file="header.jsp" %> 
 <link href="../CSS/pagoTarjeta.css" rel="stylesheet" type="text/css"/>
 <html>
-    <body>
-        <div class="cont">
-            <form method="post"> <!-- Formulario que envía los datos al servlet -->
-                <div class="content">
-                    <div class="col">
-                        <h3 class="title">Datos Personales</h3>
-                        <div class="input">
-                            <span>Nombre completo</span>
-                            <input type="text" name="nombreCompleto" required>
-                        </div>
-                        <div class="input">
-                            <span>Correo</span>
-                            <input type="email" name="correo" required>
-                        </div>
-                        <div class="input">
-                            <span>Dirección</span>
-                            <input type="text" name="direccion" required>
-                        </div>
-                        <div class="input">
-                            <span>País</span>
-                            <input type="text" name="pais" required>
-                        </div>
-                        <div class="flex">
-                            <div class="input">
-                                <span>Ciudad</span>
-                                <input type="text" name="ciudad" required>
-                            </div>
-                            <div class="input">
-                                <span>ZIP</span>
-                                <input type="text" name="zip" required>
-                            </div>
-                        </div>
-                    </div>           
-                    <div class="col">
-                        <h3 class="title">Método de pago</h3>
-                        <div class="input">
-                            <span>Tarjetas aceptadas</span>
-                            <img src="../IMG/TARJETAS.png" alt=""/>
-                        </div>
-                        <div class="input">
-                            <span>Nombre del titular</span>
-                            <input type="text" name="nombreTitular" required>
-                        </div>
-                        <div class="input">
-                            <span>Número de la tarjeta</span>
-                            <input type="number" name="numeroTarjeta" required>
-                        </div>
-                        <div class="input">
-                            <span>Mes</span>
-                            <input type="text" name="mes" required>
-                        </div>
+<body>
+	<div class="contenedor">     
+		<!-- Tarjeta -->
+		<section class="tarjeta" id="tarjeta">
+			<div class="delantera">
+				<div class="logo-marca" id="logo-marca">
+					<img src="../IMG/visa.png" alt="">
+                                        
+				</div>
+				<img src="../IMG/chip-tarjeta.png" class="chip" alt="">
+				<div class="datos">
+					<div class="grupo" id="numero">
+						<p class="label">Número Tarjeta</p>
+						<p class="numero">#### #### #### ####</p>
+					</div>
+					<div class="flexbox">
+						<div class="grupo" id="nombre">
+							<p class="label">Nombre Tarjeta</p>
+							<p class="nombre"></p>
+						</div>
 
-                        <div class="flex">
-                            <div class="input">
-                                <span>Año</span>
-                                <input type="number" name="anio" required>
-                            </div>
-                            <div class="input">
-                                <span>CVV</span>
-                                <input type="text" name="cvv" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <input type="submit" value="Pagar" class="submit-btn" onclick="adquirirMembresia()">
-            </form>
-        </div>
+						<div class="grupo" id="expiracion">
+							<p class="label">Expiracion</p>
+							<p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="trasera">
+				<div class="barra-magnetica"></div>
+				<div class="datos">
+
+					<div class="grupo" id="ccv">
+						<p class="label">CCV</p>
+						<p class="ccv"></p>
+					</div>
+				</div>
+				<p class="leyenda">_________________________________________________</p>	
+                                <br></br>                               
+			</div>
+		</section>
+
+		<!-- Contenedor Boton Abrir Formulario -->
+		<div class="contenedor-btn">
+			<button class="btn-abrir-formulario" id="btn-abrir-formulario">
+				<i class='bx bx-plus' ></i>
+			</button>
+		</div>
+
+		<!-- Formulario -->
+		<form id="formulario-tarjeta" class="formulario-tarjeta" method="post">
+			<div class="grupo">
+				<label for="inputNumero">Número Tarjeta</label>
+				<input type="text" id="inputNumero" maxlength="19" autocomplete="off">
+			</div>
+			<div class="grupo">
+				<label for="inputNombre">Nombre</label>
+				<input type="text" id="inputNombre" maxlength="19" autocomplete="off" required>
+			</div>
+			<div class="flexbox">
+				<div class="grupo expira">
+					<label for="selectMes">Expiracion</label>
+					<div class="flexbox">
+						<div class="grupo-select">
+							<select name="mes" id="selectMes">
+								<option disabled selected>Mes</option>
+							</select>
+							<i class="fas fa-angle-down"></i>
+						</div>
+						<div class="grupo-select">
+							<select name="year" id="selectYear">
+								<option disabled selected>Año</option>
+							</select>
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="grupo ccv">
+					<label for="inputCCV">CCV</label>
+					<input type="text" id="inputCCV" maxlength="3" required>
+				</div>
+			</div>	
+                        <input type="submit" class="btn-enviar" onclick="adquirirMembresia()">
+		</form>  
+	</div>
+      <!-- Revisar -->
         <script>
             function adquirirMembresia() {
                 var id = $('#idUsuario').val();
@@ -98,6 +119,7 @@
                 });
             }
         </script>
-    </body>
+    <script src="../JS/Tarjeta.js" type="text/javascript"></script>
+</body>
 </html>
 <%@ include file="footer.jsp" %> <!-- Incorpora el código del archivo footer -->
