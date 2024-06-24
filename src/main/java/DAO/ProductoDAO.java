@@ -100,7 +100,7 @@ public class ProductoDAO extends Conexion{
 
   public List listar(){
         List<Producto> lista = new ArrayList<>();
-        String SQL = "SELECT imagen, nombre, descripcion, precio FROM producto order by nombre asc";
+        String SQL = "SELECT imagen, nombre, descripcion, precio, idProducto FROM producto order by nombre asc";
         try {           
             ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
@@ -109,7 +109,8 @@ public class ProductoDAO extends Conexion{
                 p.setImagen(rs.getString(1));
                 p.setNombre(rs.getString(2));
                 p.setDescripcion(rs.getString(3));
-                p.setPrecio(rs.getInt(4));               
+                p.setPrecio(rs.getInt(4)); 
+                p.setId(rs.getInt(5));
                 lista.add(p);
             }
         } catch (SQLException e) {

@@ -16,7 +16,8 @@ public class srvObtenerProductos extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8\"");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         ProductoDAO dao = new ProductoDAO();
         List<Producto> lista = dao.listar();
         

@@ -1,25 +1,6 @@
-
 <%@ include file="header.jsp" %> 
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>      
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
-    <body>
         <style>
-            body {
-                font-family: Times New Roman, sans-serif;
-                background: linear-gradient(to right, #d9faff, #ffe6f2);
-                color: #333;
-                margin: 0;
-                padding: 20px;
-            }
             h1 {
                 text-align: center;
                 margin-top: 0px;
@@ -52,11 +33,11 @@
             .productos img {
                 width: 100%;
                 height: auto;
-                max-width: 200px; /* Ajusta el tama√±o m√°ximo seg√∫n sea necesario */
-                max-height: 200px; /* Ajusta el tama√±o m√°ximo seg√∫n sea necesario */
+                max-width: 200px; /* Ajusta el tamaÒo m·ximo seg˙n sea necesario */
+                max-height: 200px; /* Ajusta el tamaÒo m·ximo seg˙n sea necesario */
                 min-height: 200px;
                 min-width: 200px;
-                object-fit: contain; /* Asegura que la imagen mantenga su proporci√≥n */
+                object-fit: contain; /* Asegura que la imagen mantenga su proporciÛn */
                 margin: 0 auto; /* Centra la imagen dentro del contenedor */
                 display: block;
             }
@@ -107,45 +88,51 @@
                 padding-bottom: 10px;
             }
         </style>
-        <h1>Cat√°logo</h1>
+        <h2 class="ms-3 mb-3 text-center fw-bold" style="color: #9999ff;">CAT¡LOGO DE PRODUCTOS</h2>
 
-        <div id="productos-box" class="container"></div>
+        <div id="productos-box" class="row m-3"></div>
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                cargarTienda();
+            cargarTienda();
             });
 
             function cargarTienda() {
                 $.ajax({
-                    url: '../srvObtenerProductos',
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data);
-                        data.forEach(function (producto) {
-                            $('#productos-box').empty();
-                            $('#productos-box').append(`
-                                <div class="productos">
-                                    <img src="${producto.imagen}" alt="${producto.nombre}">
-                                    <div class="name-productos">
-                                        <h5>${producto.nombre}</h5>
-                                        <p>${producto.precio}</p>
-                                        <button class="add-to-cart" onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
-                                    </div>
-                                </div>
-                            `);
-                            console.log(producto.nombre + ': ' + producto.precio);
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error redirecci√≥n: " + error);
+                url: '../srvObtenerProductos',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $('#productos-box').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $('#productos-box').append(
+                            '<div class="col-md-3 mb-4">' +
+                            '<div class="productos card" id="' + data[i].id + '">' +
+                            '<img src="" alt="' + data[i].nombre + '" class="card-img-top">' +
+                            '<div class="card-body name-productos">' +
+                            '<h5 class="card-title">' + data[i].nombre + '</h5>' +
+                            '<hr>' +
+                            '<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#item-product-' + data[i].id + '" aria-expanded="false" aria-controls="item-product-' + data[i].id + '">Detalles</button>' +
+                            '<div class="collapse" id="item-product-' + data[i].id + '">' +
+                            '<div class="card card-body">' +
+                            data[i].descripcion +
+                            '</div>' +
+                            '</div>' +
+                            '<hr>' +
+                            '<p class="card-text">Precio: $' + data[i].precio + '</p>' +
+                            '<button class="add-to-cart" onclick="">Agregar al carrito</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                            );
                     }
-                });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error redirecciÛn: " + error);
+                }
+            });
             }
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    </body>
-</html>
+<%@ include file="footer.jsp" %> <!-- Incorpora el c√≥digo del archivo footer -->
 
