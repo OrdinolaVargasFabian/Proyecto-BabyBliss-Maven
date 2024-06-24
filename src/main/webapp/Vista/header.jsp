@@ -218,7 +218,7 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/Vista/comunidad.jsp"><i class='bx bxs-group me-2'></i>Comunidad de apoyo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/srvCarrito?accion=listar"><i class='bx bxs-store me-2'></i>Tienda</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/Vista/babyShop.jsp"><i class='bx bxs-store me-2'></i>Tienda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/Vista/calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
