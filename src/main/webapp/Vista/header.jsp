@@ -118,38 +118,32 @@
                             border-bottom: 1px solid #ddd;
                         }
 
-                        #cart-items button {
-                            background: none;
-                            border: none;
-                            color: red;
-                            cursor: pointer;
+                        #cuenta-carrito {
+                            background-color: #ff5733; /* Color de fondo llamativo */
+                            color: #ffffff; /* Color del texto */
+                            padding: 2px 8px; /* Espaciado interno */
+                            border-radius: 50%; /* Forma redonda */
+                            font-weight: bold; /* Texto en negrita */
+                            font-size: 14px; /* Tamaño de fuente */
+                            transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones para suavizar cambios */
+                        }
 
-
-                            #cuenta-carrito {
-                                background-color: #ff5733; /* Color de fondo llamativo */
-                                color: #ffffff; /* Color del texto */
-                                padding: 2px 8px; /* Espaciado interno */
-                                border-radius: 50%; /* Forma redonda */
-                                font-weight: bold; /* Texto en negrita */
-                                font-size: 14px; /* Tamaño de fuente */
-                                transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones para suavizar cambios */
-                            }
-
-                            #cuenta-carrito:hover {
-                                transform: scale(1.1); /* Aumenta el tamaño cuando se pasa el mouse */
-                                background-color: #ff6f61; /* Cambia el color de fondo al pasar el mouse */
-                            }
+                        #cuenta-carrito:hover {
+                            transform: scale(1.1); /* Aumenta el tamaño cuando se pasa el mouse */
+                            background-color: #ff6f61; /* Cambia el color de fondo al pasar el mouse */
                         }
                     </style>
 
                     <%--Menu desplegable de carrito de compras--%>
                     <div class="dropdown">
-                        <a class="btn rounded-pill btn-cart-icon btn-secondary float-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class='bx bxs-baby-carriage' style="font-size: 20px;"></i>
+                        <button class="btn rounded-pill btn-cart-icon float-end text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+                            <i class='bx bxs-baby-carriage fs-2'></i>
                             <span id="cuenta-carrito">0 </span>
-                        </a>
-                        <ul id="cart-items" class="text-center dropdown-menu" style="width: 200px">
-                            <!-- Los artículos del carrito se agregarán aquí dinámicamente -->
+                        </button>
+                        <ul id="cart-items" class="p-4 dropdown-menu" style="width: 500px">
+                            <h2 class="text-center">Carrito de compras</h2>
+                            <hr>
+                            <h5 class="text-center">No hay productos</h5>
                         </ul>
 
                     </div>
@@ -242,4 +236,113 @@
                 }
             %>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                showCart();
+            });
+
+            function cargarTienda() {
+                $.ajax({
+                    url: '../srvObtenerProductos',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        $('#productos-box').empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $('#productos-box').append(
+                                    '<div class="col-md-3 mb-4">' +
+                                    '<div class="productos card">' +
+                                    '<img src="" alt="' + data[i].nombre + '" class="card-img-top">' +
+                                    '<div class="card-body name-productos">' +
+                                    '<h5 class="card-title">' + data[i].nombre + '</h5>' +
+                                    '<hr>' +
+                                    '<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#item-product-' + data[i].id + '" aria-expanded="false" aria-controls="item-product-' + data[i].id + '">Detalles</button>' +
+                                    '<div class="collapse" id="item-product-' + data[i].id + '">' +
+                                    '<div class="card card-body">' +
+                                    data[i].descripcion +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<hr>' +
+                                    '<p class="card-text">Precio: $' + data[i].precio + '</p>' +
+                                    '<button class="add-to-cart" onclick="addCarrito(' + data[i].id + ', \'' + data[i].nombre + '\', ' + data[i].precio + ')">Agregar al carrito</button>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                    );
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error redirección: " + error);
+                    }
+                });
+            }
+
+            // Función para agregar al carrito
+            function addCarrito(productId, producto, precio) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const index = cart.findIndex(p => p.id === productId); // Encuentra el ï¿½ndice del producto existente
+                if (index !== -1) {
+                    // Si el producto existe, incrementa su cantidad
+                    cart[index].quantity += 1;
+                } else {
+                    // Si el producto no existe, lo agrega al carrito
+                    const product = {id: productId, nombre: producto, precio: precio, quantity: 1};
+                    cart.push(product);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                showCart();
+            }
+
+            // Mostrar el carrito
+            function showCart() {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                console.log(cart);
+                $('#cart-items').empty();
+                $('#cart-items').append('<h2 class="text-center">Carrito de compras</h2><hr>');
+                let total = 0; // Inicializa el total a 0
+                if (cart.length === 0) {
+                    $('#cart-items').append('<h5 class="text-center">No hay productos</h5>');
+                } else {
+                    for (let i = 0; i < cart.length; i++) {
+                        let subtotal = cart[i].precio * cart[i].quantity; // Calcula el subtotal del producto
+                        total += subtotal; // Suma el subtotal al total
+                        $('#cart-items').append(
+                                '<li>' +
+                                cart[i].quantity + ' x ' + cart[i].nombre + ' - $' + cart[i].precio +
+                                '<button class="btn btn-danger" onclick="removeFromCart(' + cart[i].id + ')"><i class="bx bx-x"></i></button>' +
+                                '</li>'
+                                );
+                    }
+
+                    $('#cart-items').append(
+                            '<div class="d-flex justify-content-between mt-3">' +
+                            '<h4 class="text-right">Total a pagar: $' + total + '</h4>' +
+                            '<button type="button" class="btn btn-primary">Pagar</button>' +
+                            '</div>'
+                            );
+
+                }
+                $('#cuenta-carrito').text(cart.length);
+            }
+
+            // Eliminar producto del carrito
+            function removeFromCart(productId) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                for (let i = 0; i < cart.length; i++) {
+                    if (cart[i].id === productId) {
+                        if (cart[i].quantity > 1) {
+                            // Disminuir la cantidad en 1 si hay más de un producto
+                            cart[i].quantity -= 1;
+                        } else {
+                            // Eliminar el producto del carrito si la cantidad es 1
+                            cart.splice(i, 1);
+                        }
+                        break; // Salir del bucle una vez que se encuentra y actualiza el producto
+                    }
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                showCart(); // Actualizar la visualización del carrito
+            }
+        </script>
         <%@ include file="../componentes/usuario/modalAdquirirMembresia.jsp" %> <!-- Incorpora el modal para la membresia -->

@@ -33,11 +33,11 @@
     .productos img {
         width: 100%;
         height: auto;
-        max-width: 200px; /* Ajusta el tamaño máximo según sea necesario */
-        max-height: 200px; /* Ajusta el tamaño máximo según sea necesario */
+        max-width: 200px; /* Ajusta el tamaï¿½o mï¿½ximo segï¿½n sea necesario */
+        max-height: 200px; /* Ajusta el tamaï¿½o mï¿½ximo segï¿½n sea necesario */
         min-height: 200px;
         min-width: 200px;
-        object-fit: contain; /* Asegura que la imagen mantenga su proporción */
+        object-fit: contain; /* Asegura que la imagen mantenga su proporciï¿½n */
         margin: 0 auto; /* Centra la imagen dentro del contenedor */
         display: block;
     }
@@ -96,73 +96,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         cargarTienda();
     });
-
-    function cargarTienda() {
-        $.ajax({
-            url: '../srvObtenerProductos',
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                $('#productos-box').empty();
-                for (var i = 0; i < data.length; i++) {
-                    $('#productos-box').append(
-                            '<div class="col-md-3 mb-4">' +
-                            '<div class="productos card">' +
-                            '<img src="" alt="' + data[i].nombre + '" class="card-img-top">' +
-                            '<div class="card-body name-productos">' +
-                            '<h5 class="card-title">' + data[i].nombre + '</h5>' +
-                            '<hr>' +
-                            '<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#item-product-' + data[i].id + '" aria-expanded="false" aria-controls="item-product-' + data[i].id + '">Detalles</button>' +
-                            '<div class="collapse" id="item-product-' + data[i].id + '">' +
-                            '<div class="card card-body">' +
-                            data[i].descripcion +
-                            '</div>' +
-                            '</div>' +
-                            '<hr>' +
-                            '<p class="card-text">Precio: $' + data[i].precio + '</p>' +
-                            '<button class="add-to-cart" onclick="addCarrito(' + data[i].id + ')">Agregar al carrito</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>'
-                            );
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error redirección: " + error);
-            }
-        });
-    }
-
-    // Función para agregar al carrito
-    function addCarrito(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const index = cart.findIndex(p => p.id === productId); // Encuentra el índice del producto existente
-        if (index !== -1) {
-            // Si el producto existe, incrementa su cantidad
-            cart[index].quantity += 1;
-        } else {
-            // Si el producto no existe, lo agrega al carrito
-            const product = {id: productId, quantity: 1};
-            cart.push(product);
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        showCart();
-    }
-
-    // Mostrar el carrito
-    function showCart() {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log(cart);
-    }
-
-    // Eliminar producto del carrito
-    function removeFromCart(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(p => p.id !== productId);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        showCart(); // Actualizar la visualización del carrito
-    }
 </script>
 <%@ include file="footer.jsp" %> <!-- Incorpora el cÃ³digo del archivo footer -->
 
