@@ -37,6 +37,7 @@ public class svrRegistroUsuario extends HttpServlet {
      */
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException, ParseException {
+     response.setCharacterEncoding("UTF-8");
     String nombre = request.getParameter("txtNombre");
     String appat = request.getParameter("txtApellidoPaterno");
     String apmat = request.getParameter("txtApellidoMaterno");
