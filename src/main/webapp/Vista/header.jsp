@@ -93,7 +93,7 @@
                 }
             }
         %>
-
+        <input type="hidden" name="idPerfil" id="idPerfil" value="<%=perfil_usuario%>">
         <div class="fixed-top">
             <%--Barra principal--%>
             <div class="d-flex justify-content-between align-items-center p-2" style="background: linear-gradient(to right, #C99FF4, #EDCEE9); position: relative;">
@@ -138,7 +138,7 @@
                     <div class="dropdown">
                         <button class="btn rounded-pill btn-cart-icon float-end text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
                             <i class='bx bxs-baby-carriage fs-2'></i>
-                            <span id="cuenta-carrito">0 </span>
+                            <span id="cuenta-carrito">0</span>
                         </button>
                         <ul id="cart-items" class="p-4 dropdown-menu" style="width: 500px">
                             <h2 class="text-center">Carrito de compras</h2>
@@ -277,7 +277,7 @@
                     }
                 });
             }
-            
+
             let total = 0; // Inicializa el total del carrito en 0
 
             // Función para agregar al carrito
@@ -346,16 +346,40 @@
             }
 
             function pagarCarrito() {
-                var carrito = JSON.parse(localStorage.getItem('cart'));
-                $.ajax({
-                    url: '../srvCarrito?total=' + total,
-                    type: 'POST',
-                    contentType: 'application/json', // Especifica que el tipo de contenido es JSON
-                    data: JSON.stringify({ carrito: carrito }), // Convierte el objeto a una cadena JSON
-                    success: function (response) {
-                        console.log(response);
-                    }
-                });
+                var perfil = $('#idPerfil').val();
+                if (perfil != 0) {
+                    var carrito = JSON.parse(localStorage.getItem('cart'));
+                    $.ajax({
+                        url: '../srvCarrito?total=' + total,
+                        type: 'POST',
+                        contentType: 'application/json', // Especifica que el tipo de contenido es JSON
+                        data: JSON.stringify({carrito: carrito}), // Convierte el objeto a una cadena JSON
+                        success: function (response) {
+                            localStorage.clear();
+                            swal.fire({
+                                title: '¡Felicidades!',
+                                text: 'Tu pago ha sido completado',
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.href = "index.jsp";
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    swal.fire({
+                        title: '¡Alto!',
+                        text: 'Debes iniciar sesión para realizar el pago',
+                        icon: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = "login.jsp";
+                        }
+                    });
+                }
             }
         </script>
         <%@ include file="../componentes/usuario/modalAdquirirMembresia.jsp" %> <!-- Incorpora el modal para la membresia -->

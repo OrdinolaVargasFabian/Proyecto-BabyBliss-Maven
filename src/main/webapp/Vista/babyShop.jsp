@@ -90,7 +90,9 @@
 </style>
 <h2 class="my-5 text-center fw-bold" style="color: #9999ff;">CATÁLOGO DE PRODUCTOS</h2>
 
-<div id="productos-box" class="row m-3"></div>
+<div id="productos-box" class="row m-3">
+    <h3 class="text-center" style="color: #9999ff;"><i class='bx bx-refresh bx-spin bx-rotate-180 me-2'></i>Cargando productos...</h3>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
