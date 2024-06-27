@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
-public class ProductoDAO extends Conexion{
+public class ProductoDAO extends Conexion {
 
     public ArrayList<Producto> ListarTodos() {
         ArrayList<Producto> lista = new ArrayList<Producto>();
@@ -29,7 +29,7 @@ public class ProductoDAO extends Conexion{
                 obj.setPrecio(rs.getDouble("precio"));
                 obj.setStock(rs.getInt("stock"));
                 obj.setImagen(rs.getString("imagen"));
-                
+
                 lista.add(obj);
             }
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class ProductoDAO extends Conexion{
         }
         return lista;
     }
-    
+
     public Producto BuscarPorId(int id) {
         Producto obj = null;
 
@@ -70,7 +70,7 @@ public class ProductoDAO extends Conexion{
                 obj.setPrecio(rs.getDouble("precio"));
                 obj.setStock(rs.getInt("stock"));
                 obj.setImagen(rs.getString("imagen"));
-                              
+
             }
         } catch (Exception e) {
             //cerrar la cadena de conexion
@@ -95,13 +95,10 @@ public class ProductoDAO extends Conexion{
 
     int r = 0;
 
-
-   
-
-  public List listar(){
+    public List listar() {
         List<Producto> lista = new ArrayList<>();
         String SQL = "SELECT imagen, nombre, descripcion, precio, idProducto FROM producto order by nombre asc";
-        try {           
+        try {
             ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -109,7 +106,7 @@ public class ProductoDAO extends Conexion{
                 p.setImagen(rs.getString(1));
                 p.setNombre(rs.getString(2));
                 p.setDescripcion(rs.getString(3));
-                p.setPrecio(rs.getInt(4)); 
+                p.setPrecio(rs.getInt(4));
                 p.setId(rs.getInt(5));
                 lista.add(p);
             }

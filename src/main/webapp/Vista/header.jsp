@@ -277,6 +277,8 @@
                     }
                 });
             }
+            
+            let total = 0; // Inicializa el total del carrito en 0
 
             // Función para agregar al carrito
             function addCarrito(productId, producto, precio) {
@@ -300,7 +302,6 @@
                 console.log(cart);
                 $('#cart-items').empty();
                 $('#cart-items').append('<h2 class="text-center">Carrito de compras</h2><hr>');
-                let total = 0; // Inicializa el total a 0
                 if (cart.length === 0) {
                     $('#cart-items').append('<h5 class="text-center">No hay productos</h5>');
                 } else {
@@ -318,10 +319,9 @@
                     $('#cart-items').append(
                             '<div class="d-flex justify-content-between mt-3">' +
                             '<h4 class="text-right">Total a pagar: $' + total + '</h4>' +
-                            '<button type="button" class="btn btn-primary">Pagar</button>' +
+                            '<button type="button" onclick="pagarCarrito()" class="btn btn-primary">Pagar</button>' +
                             '</div>'
                             );
-
                 }
                 $('#cuenta-carrito').text(cart.length);
             }
@@ -343,6 +343,19 @@
                 }
                 localStorage.setItem('cart', JSON.stringify(cart));
                 showCart(); // Actualizar la visualización del carrito
+            }
+
+            function pagarCarrito() {
+                var carrito = JSON.parse(localStorage.getItem('cart'));
+                $.ajax({
+                    url: '../srvCarrito?total=' + total,
+                    type: 'POST',
+                    contentType: 'application/json', // Especifica que el tipo de contenido es JSON
+                    data: JSON.stringify({ carrito: carrito }), // Convierte el objeto a una cadena JSON
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
             }
         </script>
         <%@ include file="../componentes/usuario/modalAdquirirMembresia.jsp" %> <!-- Incorpora el modal para la membresia -->
