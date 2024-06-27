@@ -257,11 +257,11 @@
                                     '<div class="card-body name-productos">' +
                                     '<h5 class="card-title">' + data[i].nombre + '</h5>' +
                                     '<hr>' +
-                                    '<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#item-product-' + data[i].id + '" aria-expanded="false" aria-controls="item-product-' + data[i].id + '">Detalles</button>' +
-                                    '<div class="collapse" id="item-product-' + data[i].id + '">' +
-                                    '<div class="card card-body">' +
+                                    '<div class="dropdown-center">' +
+                                    '<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-info-circle me-2"></i>Detalles</button>' +
+                                    '<ul class="dropdown-menu p-3">' +
                                     data[i].descripcion +
-                                    '</div>' +
+                                    '</ul>' +
                                     '</div>' +
                                     '<hr>' +
                                     '<p class="card-text">Precio: $' + data[i].precio + '</p>' +
