@@ -209,7 +209,7 @@
             </div>
             <%@ include file="../componentes/usuario/offcanvasDetallesUsuario.jsp" %> <!-- Incorpora el código del offcanvas para ver los datos del usuario -->
             <%--Barra de navegacion--%>
-            <% if (perfil_usuario == 1) {%>
+            
             <ul class="nav justify-content-center nav-pills nav-fill p-3 bg-white">
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/Vista/index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
@@ -223,17 +223,7 @@
                 <li class="nav-item">
                     <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
                 </li> 
-                <% } else if (perfil_usuario == 2) {%>
-                <ul class="nav justify-content-center nav-pills nav-fill p-3 bg-white">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/Vista/index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/Vista/comunidad.jsp"><i class='bx bxs-group me-2'></i>Comunidad de apoyo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/Vista/babyShop.jsp"><i class='bx bxs-store me-2'></i>Baby Shop</a>
-                    </li>
+                <%  if (perfil_usuario == 2) {%>
 
                     <li class="nav-item">
                         <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
