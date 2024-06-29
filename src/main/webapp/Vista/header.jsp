@@ -50,6 +50,8 @@
 
         <title>BabyBliss</title>
     </head>
+
+
     <body style="background: linear-gradient(to right, lightcyan, lightpink); padding-top: 156px;">
         <%
             session = request.getSession(false);
@@ -182,10 +184,13 @@
                                 <%
                                         //Se verifica si es un especialista para la opción de crear una guia
                                     }
+
                                     if (perfil_usuario == 2) {
                                 %>
                             <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasAgregarGuia" role="button" aria-controls="offcanvasAgregarGuia"><i class='bx bxs-pen me-2'></i>Redactar Guia</a></li>
                             <li><hr class="dropdown-divider"></li>
+
+                            
                                 <%
                                     }
                                 %>
@@ -204,6 +209,7 @@
             </div>
             <%@ include file="../componentes/usuario/offcanvasDetallesUsuario.jsp" %> <!-- Incorpora el código del offcanvas para ver los datos del usuario -->
             <%--Barra de navegacion--%>
+            <% if (perfil_usuario == 1) {%>
             <ul class="nav justify-content-center nav-pills nav-fill p-3 bg-white">
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/Vista/index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
@@ -215,26 +221,44 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/Vista/babyShop.jsp"><i class='bx bxs-store me-2'></i>Baby Shop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/Vista/calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
+                    <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/calendario.jsp"><i class='bx bxs-calendar me-2'></i>Calendario</a>
                 </li> 
-                <%                    //Se verifica si el usuario tiene una membresia
-                    if (membresia == 2) {
+                <% } else if (perfil_usuario == 2) {%>
+                <ul class="nav justify-content-center nav-pills nav-fill p-3 bg-white">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/Vista/index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/Vista/comunidad.jsp"><i class='bx bxs-group me-2'></i>Comunidad de apoyo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/Vista/babyShop.jsp"><i class='bx bxs-store me-2'></i>Baby Shop</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
+                    </li> 
+                    
+                    <% } %>
+                    <%                    //Se verifica si el usuario tiene una membresia
+                        if (membresia == 2) {
+                    %>
+                    <%--(MEMBRESIA HABILITADA)--%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="programarReunion.jsp"><i class='bx bxs-calendar-plus me-2'></i>Programar Reunion</a>
+                    </li>
+                    <%
+                        }
+                    %>
+                </ul>
+                <%
+                    if (perfil_usuario == 2) {
                 %>
-                <%--(MEMBRESIA HABILITADA)--%>
-                <li class="nav-item">
-                    <a class="nav-link" href="programarReunion.jsp"><i class='bx bxs-calendar-plus me-2'></i>Programar Reunion</a>
-                </li>
+                <%@ include file="../componentes/especialista/offcanvasAgregarGuia.jsp" %>
                 <%
                     }
                 %>
-            </ul>
-            <%
-                if (perfil_usuario == 2) {
-            %>
-            <%@ include file="../componentes/especialista/offcanvasAgregarGuia.jsp" %>
-            <%
-                }
-            %>
+
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -305,8 +329,10 @@
                 if (cart.length === 0) {
                     $('#cart-items').append('<h5 class="text-center">No hay productos</h5>');
                 } else {
+                    total = 0;
                     for (let i = 0; i < cart.length; i++) {
                         let subtotal = cart[i].precio * cart[i].quantity; // Calcula el subtotal del producto
+
                         total += subtotal; // Suma el subtotal al total
                         $('#cart-items').append(
                                 '<li>' +
@@ -363,7 +389,7 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
                                 if (result.value) {
-                                    window.location.href = "index.jsp";
+                                    window.location.href = "babyShop.jsp";
                                 }
                             });
                         }
