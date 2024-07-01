@@ -4,73 +4,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <style>
-            /* Estilos generales */
-            body {             
-                margin: 0;
-                padding: 0;
-            }
-
-            .content {
-                width: 80%;
-                max-width: 1200px;
-                margin: 20px auto; /* Centra el contenido */
-                overflow: hidden; /* Limpia el float de los elementos internos */
-            }
-
-            .telefono {
-                float: left; /* Alinea el número de teléfono a la izquierda */
-                width: 50%; /* Ocupa el 50% del ancho */
-                box-sizing: border-box; /* Incluye el padding en el ancho */
-                padding: 20px; /* Espaciado interno */
-                background-color: #ffcccc; /* Color de fondo para el número */
-                color: #330033; /* Color de texto */
-                font-size: 5rem; /* Tamaño de fuente grande */
-                text-align: center; /* Alineación centrada */
-                font-family: 'Helvetica', sans-serif; /* Cambia el tipo de letra */              
-            }
-
-            .qr {
-                float: right; /* Alinea el QR a la derecha */
-                width: 50%; /* Ocupa el 50% del ancho */
-                box-sizing: border-box; /* Incluye el padding en el ancho */
-                padding: 20px; /* Espaciado interno */             
-                text-align: center; /* Centra la imagen */
-            }
-
-            .qr img {
-                max-width: 100%; /* Asegura que la imagen del QR sea responsiva */
-                height: auto;
-                max-width: 300px; /* Tamaño máximo del QR */
-            }
-
-            .cont {
-                width: 100%;
-                text-align: center;
-            }
-
-            .cont img {
-                max-width: 300px;
-            }
-
-            .buttom {
-                margin-top: 20px;
-            }
-        </style>
         <link href="../CSS/pagoPLIN.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="content">
-            <div class="telefono">
-                <h2>Mi número</h2>
-                <h1>992245544</h1>             
-            </div>
-            <div class="qr">
-                <img src="../IMG/PagoPlin.png" alt="QR">
-            </div>
-        </div>
         <div class="cont">
-            <img src="../IMG/QR_PLIN.png" alt="">
+            <img src="../IMG/QR_PLIN.png" alt=""/>
             <br><br>
             <div class="buttom">
                 <form id="formulario" action="" method="post" enctype="multipart/form-data">
