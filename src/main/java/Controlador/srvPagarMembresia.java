@@ -123,7 +123,7 @@ public class srvPagarMembresia extends HttpServlet {
             ULocale locale = new ULocale("es_ES");
             
             int parteEntera = (int) total;
-            double parteDecimal = total - parteEntera;
+            int parteDecimal = (int)Double.parseDouble(df.format(total - parteEntera));
             
             RuleBasedNumberFormat formatter = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
             String nombreParteEntera = formatter.format(parteEntera);

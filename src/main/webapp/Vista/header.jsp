@@ -190,10 +190,10 @@
                             <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasAgregarGuia" role="button" aria-controls="offcanvasAgregarGuia"><i class='bx bxs-pen me-2'></i>Redactar Guia</a></li>
                             <li><hr class="dropdown-divider"></li>
 
-                            
-                                <%
-                                    }
-                                %>
+
+                            <%
+                                }
+                            %>
                             <li><a class="dropdown-item" href="../srvIniciarSesion?accion=cerrar"><i class='bx bx-log-out me-2'></i>Cerrar Sesión</a></li>
                         </ul>
                     </div>
@@ -209,7 +209,7 @@
             </div>
             <%@ include file="../componentes/usuario/offcanvasDetallesUsuario.jsp" %> <!-- Incorpora el código del offcanvas para ver los datos del usuario -->
             <%--Barra de navegacion--%>
-            
+
             <ul class="nav justify-content-center nav-pills nav-fill p-3 bg-white">
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/Vista/index.jsp"><i class='bx bxs-home me-2'></i>Inicio</a>
@@ -225,29 +225,29 @@
                 </li> 
                 <%  if (perfil_usuario == 2) {%>
 
-                    <li class="nav-item">
-                        <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
-                    </li> 
-                    
-                    <% } %>
-                    <%                    //Se verifica si el usuario tiene una membresia
-                        if (membresia == 2) {
-                    %>
-                    <%--(MEMBRESIA HABILITADA)--%>
-                    <li class="nav-item">
-                        <a class="nav-link" href="programarReunion.jsp"><i class='bx bxs-calendar-plus me-2'></i>Programar Reunion</a>
-                    </li>
-                    <%
-                        }
-                    %>
-                </ul>
-                <%
-                    if (perfil_usuario == 2) {
+                <li class="nav-item">
+                    <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
+                </li> 
+
+                <% } %>
+                <%                    //Se verifica si el usuario tiene una membresia
+                    if (membresia == 2) {
                 %>
-                <%@ include file="../componentes/especialista/offcanvasAgregarGuia.jsp" %>
+                <%--(MEMBRESIA HABILITADA)--%>
+                <li class="nav-item">
+                    <a class="nav-link" href="programarReunion.jsp"><i class='bx bxs-calendar-plus me-2'></i>Programar Reunion</a>
+                </li>
                 <%
                     }
                 %>
+            </ul>
+            <%
+                if (perfil_usuario == 2) {
+            %>
+            <%@ include file="../componentes/especialista/offcanvasAgregarGuia.jsp" %>
+            <%
+                }
+            %>
 
         </div>
         <script>
@@ -370,6 +370,15 @@
                         type: 'POST',
                         contentType: 'application/json', // Especifica que el tipo de contenido es JSON
                         data: JSON.stringify({carrito: carrito}), // Convierte el objeto a una cadena JSON
+                        beforeSend: function () {
+                            swal.fire({
+                                title: 'ESPERA',
+                                html: 'Procesando...',
+                                didOpen: () => {
+                                    swal.showLoading()
+                                }
+                            })
+                        },
                         success: function (response) {
                             localStorage.clear();
                             swal.fire({
