@@ -33,17 +33,45 @@
             outline: none;
         }
     </style>
-    <body>
+    <div class="form-floating">
+        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+            <option selected>Las tablas a su disposicion</option>
+            <option value="1">Usuarios</option>
+            <option value="2">Productos</option>
+            <option value="3">Comentarios</option>
+        </select>
+        <label for="floatingSelect">Visualice su tabla</label>
+    </div>
 
-        <div class="combo-box-container">
-            <label for="comboBox">Selecciona una opción:</label>
-            <select id="comboBox" name="options">
-                <option value="opcion1">Usuario</option>
-                <option value="opcion2">Productos</option>
-                <option value="opcion3">Comentarios</option>
-                
-            </select>
-        </div>
-        
-    </body>
+    <div id="infoTabla" style="margin-top: 20px;">
+        <!-- Aquí se mostrará la información de la tabla -->
+    </div>
+
+    <script>
+        function mostrarInformacion(opcion) {
+            if (opcion == "") {
+                document.getElementById("infoTabla").innerHTML = "Seleccione una opción para mostrar la información.";
+                return;
+            } else {
+                var url = "";
+                if (opcion === "Usuarios") {
+                    url = "srvTablas";
+                } else {
+                    // Aquí puedes agregar otras opciones y sus correspondientes URLs de servlet
+                }
+
+                if (url !== "") {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("infoTabla").innerHTML = this.responseText;
+                        }
+                    };
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+                }
+            }
+        }
+    </script>
+</body>
 </html>

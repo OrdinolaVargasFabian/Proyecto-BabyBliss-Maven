@@ -1,6 +1,8 @@
 package Persistencia;
 import java.sql.*;
 public class Conexion implements Parametros {
+
+    
     public Connection con;
     public PreparedStatement ps;
     public Statement smt;

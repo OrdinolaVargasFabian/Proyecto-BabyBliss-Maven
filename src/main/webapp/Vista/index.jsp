@@ -162,6 +162,7 @@
     </div> 
 
     <!-------------------------------------------- ACCESO DIRECTO TIENDA --------------------------------------------------------------------------------------------->  
-
+    <%@ include file="ayuda.jsp" %>
+    
 </body>
 <%@ include file="footer.jsp" %> <!-- Incorpora el código del archivo footer -->
