@@ -42,6 +42,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import com.ibm.icu.text.RuleBasedNumberFormat;
+import com.ibm.icu.util.ULocale;
+import java.text.DecimalFormat;
 
 @WebServlet(name = "srvPagarMembresia", urlPatterns = {"/srvPagarMembresia"})
 public class srvPagarMembresia extends HttpServlet {
@@ -79,12 +82,14 @@ public class srvPagarMembresia extends HttpServlet {
             //Se crea una lista de mapas para llenar los datos de la tabla, cada Map dentro de List equivale a una fila
             List<Map<String, Object>> listaFields = new ArrayList<>();
             Map<String, Object> fields = new HashMap<String, Object>();
+            fields.put("cantidad", 1);
+            fields.put("codigo", 2);
             fields.put("descripcion", "Membresia BabyGold");
             fields.put("precio", 9.99);
             listaFields.add(fields);
 
             JRDataSource dataSource = new JRBeanCollectionDataSource(listaFields);
-            JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("\\JasperReports\\ComprobantePagoMembresia.jrxml"));
+            JasperReport jasperReport = JasperCompileManager.compileReport(getServletContext().getRealPath("\\JasperReports\\ComprobantePago.jrxml"));
 
             //Se obtiene la fecha actual
             DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
@@ -96,9 +101,36 @@ public class srvPagarMembresia extends HttpServlet {
             //Se insertan los parametros que posee el jrxml
             Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("LogoBabyBliss", imagePath);
+            parameters.put("IdBoleta", "EB01-" + datosBoleta.getId());
             parameters.put("NombreCompleto", nombreCompleto);
+            parameters.put("DNI", usuario.getDni());
+            parameters.put("Moneda", "Dolares");
             parameters.put("ds", dataSource);
-            parameters.put("Total", 9.99);
+            
+            double subtotal = 10.00;
+            
+            DecimalFormat df = new DecimalFormat("#.##"); //Formato de 2 decimales
+            
+            double IGV = Double.parseDouble(df.format(subtotal * 18/100));
+            double total = subtotal + IGV;
+
+            parameters.put("Subtotal", "$ " + subtotal);
+            parameters.put("IGV", "$ " + IGV);
+            
+            parameters.put("Total", "$ " + total);
+            
+            //Obtener el nombre del total
+            ULocale locale = new ULocale("es_ES");
+            
+            int parteEntera = (int) total;
+            double parteDecimal = total - parteEntera;
+            
+            RuleBasedNumberFormat formatter = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
+            String nombreParteEntera = formatter.format(parteEntera);
+            
+            String TotalTexto = nombreParteEntera.toUpperCase() + " Y " + (parteDecimal*100) + "/100 DOLARES";
+            
+            parameters.put("NombreTotal", TotalTexto);
 
             //Completa la plantilla jrxml con los datos 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());

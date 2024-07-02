@@ -113,6 +113,12 @@
             <artifactId>json</artifactId>
             <version>20210307</version>
         </dependency>
+        <!-- Obtener el nombre de un numero -->
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>64.2</version>
+        </dependency>
     </dependencies>
 
     <build>
