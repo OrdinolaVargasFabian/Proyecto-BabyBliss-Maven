@@ -1,0 +1,23 @@
+¿Cuál es el proceso de compra?::Para comprar productos en BabyBliss, sigue estos pasos:
+1. Navega a la tienda y selecciona los productos que deseas.
+2. Añade los productos al carrito de compras.
+3. Procede al pago y elige el método de pago que prefieras (tarjeta de crédito, transferencia bancaria, etc.).
+4. Confirma tu compra y recibirás una notificación con los detalles de tu pedido.
+
+¿Cómo puedo adquirir una membresía?::Para adquirir una membresía en BabyBliss, sigue estos pasos:
+1. Inicia sesión en tu cuenta.
+2. Ve a la sección de membresías.
+3. Selecciona el tipo de membresía que deseas adquirir.
+4. Procede al pago y confirma tu compra.
+
+¿Qué servicios ofrece BabyBliss?::BabyBliss ofrece los siguientes servicios:
+- Consejos personalizados sobre el cuidado del bebé.
+- Una tienda con productos para bebés.
+- Un calendario para eventos y recordatorios.
+- Una comunidad para interactuar con otros usuarios y especialistas.
+
+¿Cómo puedo programar una reunión con un especialista?::Para programar una reunión con un especialista en BabyBliss, sigue estos pasos:
+1. Inicia sesión en tu cuenta.
+2. Ve a la sección de especialistas.
+3. Selecciona el especialista con el que deseas reunirte.
+4. Elige una fecha y hora disponibles y confirma la reunión.
