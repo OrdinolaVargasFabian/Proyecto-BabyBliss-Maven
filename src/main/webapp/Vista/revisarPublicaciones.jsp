@@ -1,31 +1,16 @@
 <%@ include file="header.jsp" %> <!-- Incorpora el cÃ³digo del archivo header -->
 <div class="card-datatable table-responsive bg-light p-3 rounded shadow">
-    <table id="datatable-revisarPublicaciones" class="table table-striped m-3">
-        <thead>
-            <tr>
-                <td class="text-center">ID</td>
-                <td class="text-center">TITULO</td>
-                <td class="text-center">CONTENIDO</td>
-                <td class="text-center">USUARIO</td>
-                <td class="text-center">FECHA DE PUBLICACIÓN</td>
-                <td class="text-center">ACCIONES</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-center">1</td>
-                <td class="text-center">HOLAAAAA</td>
-                <td class="text-center">Espero esten teniendo un buen dia, me gustaria saber su recomendación para bocaditos para un cumpleaños de 2 añitos.</td>
-                <td class="text-center">Laura Fernandez Sanchez</td>
-                <td class="text-center">12/05/2024</td>
-                <td class="text-center"></td>
-            </tr>
-        </tbody>
-    </table>
+    <table id="datatable-revisarPublicaciones" class="table table-striped m-3"></table>
 </div>
 <script>
     $(document).ready(function () {
         $('#datatable-revisarPublicaciones').DataTable({
+            "ajax": "../srvControladorComunidad?accion=listar",
+            "columns": [
+                { "data": "idForo" },
+                { "data": "titulo" },
+                { "data": "contenido" }
+            ],
             columnDefs: [
                 {
                     // Actions

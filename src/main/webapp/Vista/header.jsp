@@ -44,8 +44,8 @@
 
         <link rel="icon" type="image/x-icon" href="../babybliss_logo.png">
 
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <%--<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
 
 
         <title>BabyBliss</title>
@@ -98,7 +98,7 @@
         <input type="hidden" name="idPerfil" id="idPerfil" value="<%=perfil_usuario%>">
         <div class="fixed-top">
             <%--Barra principal--%>
-            <div class="d-flex justify-content-between align-items-center p-2" style="background: linear-gradient(to right, #C99FF4, #EDCEE9); position: relative;">
+            <div class="d-flex justify-content-between align-items-center py-2 px-4" style="background: linear-gradient(to right, #C99FF4, #EDCEE9); position: relative;">
                 <%--Logo de BabyBliss--%>
                 <a href="index.jsp" class="d-flex align-items-center" style="text-decoration: none; color: black;">
                     <img src="<%=request.getContextPath()%>/babybliss_logo.png" alt="BabyBliss" style="width: 70px">
@@ -147,20 +147,17 @@
                             <hr>
                             <h5 class="text-center">No hay productos</h5>
                         </ul>
-
                     </div>
 
-
-
                     <%--Menu desplegable de notificaciones--%>
-                    <div class="dropdown">
+                    <%--<div class="dropdown">
                         <a class="btn rounded-pill btn-icon btn-secondary float-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class='bx bxs-bell' style="font-size: 20px;"></i>
                         </a>
                         <ul class="text-center dropdown-menu" style="width: 200px">
                             <li>NO TIENES NOTIFICACIONES PENDIENTES</li>
                         </ul>
-                    </div>
+                    </div>--%>
                     <%
                         //Se verifica si hay un usuario logueado
                         if (perfil_usuario != 0) {

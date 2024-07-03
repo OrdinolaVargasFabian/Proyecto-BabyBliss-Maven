@@ -5,7 +5,7 @@ import java.util.Date;
 public class ForoApoyo {
     private int idForo;
     private String titulo;
-    private String usuario;
+    private int usuario;
     private Date fechaCreacion;
     private String contenido;
     private int likes;
@@ -30,11 +30,11 @@ public class ForoApoyo {
         this.titulo = titulo;
     }
 
-    public String getUsuario() {
+    public int getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
 
