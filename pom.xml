@@ -119,6 +119,24 @@
             <artifactId>icu4j</artifactId>
             <version>64.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>71.1</version> 
+        </dependency>
+         <!-- Dependencia para JCommon -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.24</version>
+       </dependency>
+        <!-- Dependencia para JFreeChart -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.19</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

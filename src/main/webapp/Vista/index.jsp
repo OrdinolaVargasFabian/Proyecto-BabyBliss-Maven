@@ -45,6 +45,7 @@
              Adelante, descubre el mundo de dulzura que hemos preparado para ti y tu bebé.
            </p>
            <a href="DashboardPLANES.jsp" class="btn-1">¡Descrube quienes somos!</a><!-- LINK DESCRIPCIÓN WEB--> 
+       
       </div>
     </header> 
     <!-------------------------------------------- DETALLES ---------------------------------------------------------------------------------------------> 
