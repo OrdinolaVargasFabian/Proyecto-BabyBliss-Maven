@@ -50,8 +50,8 @@ public class srvObtenerMembresia extends HttpServlet {
             }
             
             DefaultPieDataset data = new DefaultPieDataset();
-            data.setValue("Sin Membresía", noMembresia);
-            data.setValue("Con Membresía", Membresia);
+            data.setValue("Sin Membresía: "+String.valueOf(noMembresia), noMembresia);
+            data.setValue("Con Membresía: "+String.valueOf(Membresia), Membresia);
             
             JFreeChart cha = ChartFactory.createPieChart3D("Cantidad de Membresías", data, true, true, true );
             
