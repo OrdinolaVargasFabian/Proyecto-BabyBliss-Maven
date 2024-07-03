@@ -12,10 +12,6 @@
         <servlet-name>srvObtenerProductos</servlet-name>
         <servlet-class>Controlador.srvObtenerProductos</servlet-class>
     </servlet>
-    <servlet>
-    <servlet-name>srvObtenerMembresia</servlet-name>
-    <servlet-class>Controlador.srvObtenerMembresia</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>srvPagarMembresia</servlet-name>
         <url-pattern>/srvPagarMembresia</url-pattern>
@@ -27,17 +23,6 @@
     <servlet-mapping>
         <servlet-name>srvObtenerProductos</servlet-name>
         <url-pattern>/srvObtenerProductos</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ChatbotServlet</servlet-name>
-        <servlet-class>Controlador.ChatbotServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ChatbotServlet</servlet-name>
-        <url-pattern>/chatbot</url-pattern>
-    <servlet-mapping>
-        <servlet-name>srvObtenerMembresia</servlet-name>
-        <url-pattern>/srvObtenerMembresia</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

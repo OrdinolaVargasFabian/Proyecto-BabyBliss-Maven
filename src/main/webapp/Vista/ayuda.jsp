@@ -11,10 +11,10 @@
                 justify-content: flex-end;
                 align-items: center;
                 user-select: none;
-                position: sticky;
-                padding-left: 95%;
+                position: fixed;
                 bottom: 30px;
                 right: 30px;
+                z-index: 1000;
             }
 
             .fab {
@@ -28,6 +28,12 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            .fab:hover {
+                background-color: #007bff;
+                transform: scale(1.1);
             }
 
             .fab-content .material-symbols-outlined {
@@ -50,10 +56,15 @@
                 height: 50px;
                 width: 50px;
                 background-color: #4ba2ff;
-                border-radius: 50px;
-                transition: all 0.3s ease;
+                border-radius: 50%;
+                transition: all 0.3s ease, background-color 0.3s ease;
                 opacity: 0;
                 visibility: hidden;
+            }
+
+            .sub-button:hover {
+                background-color: #007bff;
+                transform: scale(1.1);
             }
 
             .sub-button a .material-symbols-outlined {
@@ -84,12 +95,6 @@
 
             .fab-container.open .sub-button:nth-child(4) {
                 transform: translateY(-200px);
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .fab-container.open .sub-button:nth-child(5) {
-                transform: translateY(-260px);
                 opacity: 1;
                 visibility: visible;
             }
@@ -167,7 +172,7 @@
             <div class="chatbot-header">Chatbot BabyBliss</div>
             <div id="chatbotMessages" class="chatbot-messages"></div>
             <div class="chatbot-input">
-                <form id="chatbotForm" action="chatbot" method="post">
+                <form id="chatbotForm">
                     <input type="text" name="message" id="userMessage" placeholder="Escribe tu pregunta aquí...">
                     <button type="submit">Enviar</button>
                 </form>
@@ -192,22 +197,49 @@
             document.getElementById('chatbotForm').addEventListener('submit', function (event) {
                 event.preventDefault();
                 var userMessage = document.getElementById('userMessage').value;
-                fetch('chatbot', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'message=' + encodeURIComponent(userMessage),
-                })
-                        .then(response => response.text())
-                        .then(data => {
-                            const messagesDiv = document.getElementById('chatbotMessages');
-                            const messageElement = document.createElement('div');
-                            messageElement.textContent = data;
-                            messagesDiv.appendChild(messageElement);
-                            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                        });
+                var chatbotMessages = document.getElementById('chatbotMessages');
+
+                // lógica para responder a los mensajes del usuario.
+                var response = getChatbotResponse(userMessage);
+
+                var userMessageElement = document.createElement('div');
+                userMessageElement.textContent = "Tú: " + userMessage;
+                chatbotMessages.appendChild(userMessageElement);
+
+                var botMessageElement = document.createElement('div');
+                botMessageElement.textContent = "Bot: " + response;
+                chatbotMessages.appendChild(botMessageElement);
+
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                document.getElementById('userMessage').value = '';
             });
+
+            function getChatbotResponse(message) {
+                // lógica para responder a los mensajes del usuario.    
+                const responses = {
+                    "hola": "¡Hola! ¿En qué puedo ayudarte?",
+                    "qué es babybliss": "Es un aplicativo web, donde proporcionamos herramientas de ayuda para las madres primerizas que tengas dificultades con el cuidado de su bebé",
+                    "cuál es el proceso de compra": "Para comprar productos en BabyBliss, 1. Navega a la tienda y selecciona los productos que deseas.\n\
+                                                  2. Añade los productos al carrito de compras.\n\
+                                                  3. Procede al pago y elige el método de pago que prefieras (tarjeta de crédito, transferencia bancaria, etc.).\n\
+                                                  4. Confirma tu compra y recibirás una notificación con los detalles de tu pedido.",
+                    "cómo puedo adquirir una membresía": "Para adquirir una membresía en BabyBliss, sigue estos pasos:\n\
+                                                      1. Inicia sesión en tu cuenta.\n\
+                                                      2. Clic en el icono de su perfil.\n\
+                                                      3. Selecciona en membresías y observará el precio de nuestra membresía.\n\
+                                                      4. Elige su método de pago favorito.\n\
+                                                      5. Procede al pago y confirma tu compra.",
+                    "qué servicios ofrece babybliss": "BabyBliss ofrece los siguientes servicios:\n\
+                                                    - Consejos personalizados sobre el cuidado del bebé.\n\
+                                                    - Una tienda con productos para bebés.\n\
+                                                    - Un calendario para eventos y recordatorios.\n\
+                                                    - Una comunidad para interactuar con otros usuarios.\n\
+                                                    - Una opción premium donde podrás resolver tus dudas con un especialista.",
+                };
+
+                return responses[message.toLowerCase()] || "Lo siento, no entiendo tu pregunta.";
+            }
         </script>
     </body>
 </html>
+
