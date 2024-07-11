@@ -12,6 +12,10 @@
         <servlet-name>srvObtenerProductos</servlet-name>
         <servlet-class>Controlador.srvObtenerProductos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvConfiguracionBD</servlet-name>
+        <servlet-class>Controlador.srvConfiguracionBD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvPagarMembresia</servlet-name>
         <url-pattern>/srvPagarMembresia</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>srvObtenerProductos</servlet-name>
         <url-pattern>/srvObtenerProductos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvConfiguracionBD</servlet-name>
+        <url-pattern>/srvConfiguracionBD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

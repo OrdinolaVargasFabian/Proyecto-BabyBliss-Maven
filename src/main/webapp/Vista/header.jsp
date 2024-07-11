@@ -186,7 +186,8 @@
                                 %>
                             <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasAgregarGuia" role="button" aria-controls="offcanvasAgregarGuia"><i class='bx bxs-pen me-2'></i>Redactar Guia</a></li>
                             <li><hr class="dropdown-divider"></li>
-
+                            <li><button class="dropdown-item" onclick="mostrarConfigBD()"><i class='bx bxs-data me-2'></i>Base de Datos</button></li>
+                            <li><hr class="dropdown-divider"></li>
 
                             <%
                                 }
@@ -224,7 +225,7 @@
 
                 <li class="nav-item">
                     <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
-                </li> 
+                </li>
 
                 <% } %>
                 <%                    //Se verifica si el usuario tiene una membresia
@@ -405,3 +406,10 @@
             }
         </script>
         <%@ include file="../componentes/usuario/modalAdquirirMembresia.jsp" %> <!-- Incorpora el modal para la membresia -->
+        <%
+            if (perfil_usuario == 2) {
+        %>
+        <%@ include file="../componentes/especialista/modalConfiguracionBD.jsp" %> <!-- Incorpora el modal para ver la configuracion de la BD -->
+        <%
+            }
+        %>
