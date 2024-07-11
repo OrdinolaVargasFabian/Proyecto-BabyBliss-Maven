@@ -51,12 +51,12 @@
             <p>CCI: 121-456478424561101</p>
             <p>CC: 456478424561101</p>
             <p>Nombre: Fabian Ordinola</p>
-            <form id="formulario" action="" method="post" enctype="multipart/form-data">
+            <form id="formulario" method="post" enctype="multipart/form-data" onsubmit="return false">
                 <label for="evidencia">Insertar evidencia</label>
                 <input type="file" id="evidencia" name="evidencia" accept="image/*" >
                 <br><br>
                 <div class="buttom">
-                    <input type="submit" onclick="adquirirMembresia()" value="Enviar" style="margin-bottom: 10px;"> 
+                    <input type="submit" onclick="pagar()" value="Enviar" style="margin-bottom: 10px;"> 
                     <p class="mensaje-espera">El tiempo de espera para la validación de su compra dependerá de su entidad financiera</p>
                 </div>
             </form>
@@ -79,6 +79,38 @@
 
             });
 
+            function pagarCarrito() {
+                    var carrito = JSON.parse(localStorage.getItem('cart'));
+                    $.ajax({
+                        url: '../srvCarrito?total=' + total,
+                        type: 'POST',
+                        contentType: 'application/json', // Especifica que el tipo de contenido es JSON
+                        data: JSON.stringify({carrito: carrito}), // Convierte el objeto a una cadena JSON
+                        beforeSend: function () {
+                            swal.fire({
+                                title: 'ESPERA',
+                                html: 'Procesando...',
+                                didOpen: () => {
+                                    swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function (response) {
+                            localStorage.clear();
+                            swal.fire({
+                                title: '¡Felicidades!',
+                                text: 'Tu pago ha sido completado',
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.href = "babyShop.jsp";
+                                }
+                            });
+                        }
+                    });
+            }
+            
             function adquirirMembresia() {
                 var id = $('#idUsuario').val();
                 $.ajax({
@@ -106,6 +138,21 @@
                         });
                     }
                 });
+            }
+            
+            function pagar(){
+                var pagar = localStorage.getItem('quePagarValor');
+                if (pagar == 'carrito') {
+                    pagarCarrito();
+                    console.log("pagar carrito");
+                } else if (pagar == 'membresia') {
+                    adquirirMembresia();
+                    console.log("pagar membresia");
+                } else {
+                    console.log("error");
+                }
+                console.log(localStorage.getItem('quePagarValor'));
+                localStorage.removeItem('quePagarValor');
             }
         </script>
     </body>

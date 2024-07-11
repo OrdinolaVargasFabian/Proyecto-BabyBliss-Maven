@@ -52,7 +52,7 @@
 		</div>
 
 		<!-- Formulario -->
-		<form id="formulario-tarjeta" class="formulario-tarjeta" method="post">
+                <form id="formulario-tarjeta" class="formulario-tarjeta" method="post" onsubmit="return false">
 			<div class="grupo">
 				<label for="inputNumero">Número Tarjeta</label>
 				<input type="text" id="inputNumero" maxlength="19" autocomplete="off">
@@ -85,11 +85,43 @@
 					<input type="text" id="inputCCV" maxlength="3" required>
 				</div>
 			</div>	
-                        <input type="submit" class="btn-enviar" onclick="adquirirMembresia()">
+                        <input type="submit" class="btn-enviar" onclick="pagar()">
 		</form>  
 	</div>
       <!-- Revisar -->
         <script>
+            function pagarCarrito() {
+                    var carrito = JSON.parse(localStorage.getItem('cart'));
+                    $.ajax({
+                        url: '../srvCarrito?total=' + total,
+                        type: 'POST',
+                        contentType: 'application/json', // Especifica que el tipo de contenido es JSON
+                        data: JSON.stringify({carrito: carrito}), // Convierte el objeto a una cadena JSON
+                        beforeSend: function () {
+                            swal.fire({
+                                title: 'ESPERA',
+                                html: 'Procesando...',
+                                didOpen: () => {
+                                    swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function (response) {
+                            localStorage.clear();
+                            swal.fire({
+                                title: '¡Felicidades!',
+                                text: 'Tu pago ha sido completado',
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.href = "babyShop.jsp";
+                                }
+                            });
+                        }
+                    });
+            }
+            
             function adquirirMembresia() {
                 var id = $('#idUsuario').val();
                 $.ajax({
@@ -117,6 +149,21 @@
                         });
                     }
                 });
+            }
+            
+            function pagar(){
+                var pagar = localStorage.getItem('quePagarValor');
+                if (pagar == 'carrito') {
+                    pagarCarrito();
+                    console.log("pagar carrito");
+                } else if (pagar == 'membresia') {
+                    adquirirMembresia();
+                    console.log("pagar membresia");
+                } else {
+                    console.log("error");
+                }
+                console.log(localStorage.getItem('quePagarValor'));
+                localStorage.removeItem('quePagarValor');
             }
         </script>
     <script src="../JS/Tarjeta.js" type="text/javascript"></script>

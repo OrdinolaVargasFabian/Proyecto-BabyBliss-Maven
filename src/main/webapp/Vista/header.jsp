@@ -333,7 +333,7 @@
                     $('#cart-items').append(
                             '<div class="d-flex justify-content-between mt-3">' +
                             '<h4 class="text-right">Total a pagar: $' + total + '</h4>' +
-                            '<button type="button" onclick="pagarCarrito()" class="btn btn-primary">Pagar</button>' +
+                            '<button type="button" onclick="validarSesion()" class="btn btn-primary">Pagar</button>' +
                             '</div>'
                             );
                 }
@@ -358,39 +358,12 @@
                 localStorage.setItem('cart', JSON.stringify(cart));
                 showCart(); // Actualizar la visualización del carrito
             }
-
-            function pagarCarrito() {
+            
+            function validarSesion() {
                 var perfil = $('#idPerfil').val();
                 if (perfil != 0) {
-                    var carrito = JSON.parse(localStorage.getItem('cart'));
-                    $.ajax({
-                        url: '../srvCarrito?total=' + total,
-                        type: 'POST',
-                        contentType: 'application/json', // Especifica que el tipo de contenido es JSON
-                        data: JSON.stringify({carrito: carrito}), // Convierte el objeto a una cadena JSON
-                        beforeSend: function () {
-                            swal.fire({
-                                title: 'ESPERA',
-                                html: 'Procesando...',
-                                didOpen: () => {
-                                    swal.showLoading()
-                                }
-                            })
-                        },
-                        success: function (response) {
-                            localStorage.clear();
-                            swal.fire({
-                                title: '¡Felicidades!',
-                                text: 'Tu pago ha sido completado',
-                                icon: 'success',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.location.href = "babyShop.jsp";
-                                }
-                            });
-                        }
-                    });
+                    localStorage.setItem('quePagarValor', 'carrito');
+                    location.href = "pagar.jsp";
                 } else {
                     swal.fire({
                         title: '¡Alto!',
