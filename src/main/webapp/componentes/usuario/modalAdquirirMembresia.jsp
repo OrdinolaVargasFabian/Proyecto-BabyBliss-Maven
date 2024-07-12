@@ -11,7 +11,7 @@
                     <p>Programa tus reuniones virtuales con nuestros especialistas a través de la plataforma.</p>
                     <p>Las reuniones serán a través de ZOOM, se agendará en tu calendario junto con el link de invitación.</p>
                     <div class="d-flex align-items-center justify-content-between mt-5">
-                        <h2>$ 9.99/mes</h2>
+                        <h2>$ 11.80/mes</h2>
                         <a href="javascript:pagarMembresia()" class="btn btn-warning"><i class='bx bxs-crown me-2'></i>Aquirir Membresia</a>
                     </div>
                 </div>

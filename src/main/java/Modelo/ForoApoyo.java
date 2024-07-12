@@ -1,16 +1,16 @@
 package Modelo;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class ForoApoyo {
     private int idForo;
     private String titulo;
     private int usuario;
-    private Date fechaCreacion;
+    private Timestamp fechaCreacion;
     private String contenido;
     private int likes;
     private String estado;
-    private Date fechaAprobacion;
+    private Timestamp fechaAprobacion;
 
     public ForoApoyo() {}
 
@@ -38,11 +38,11 @@ public class ForoApoyo {
         this.usuario = usuario;
     }
 
-    public Date getFechaCreacion() {
+    public Timestamp getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(Timestamp fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -70,11 +70,11 @@ public class ForoApoyo {
         this.estado = estado;
     }
 
-    public Date getFechaAprobacion() {
+    public Timestamp getFechaAprobacion() {
         return fechaAprobacion;
     }
 
-    public void setFechaAprobacion(Date fechaAprobacion) {
+    public void setFechaAprobacion(Timestamp fechaAprobacion) {
         this.fechaAprobacion = fechaAprobacion;
     }
 }

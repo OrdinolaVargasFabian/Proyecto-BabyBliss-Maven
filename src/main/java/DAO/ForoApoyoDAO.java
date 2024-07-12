@@ -10,7 +10,7 @@ public class ForoApoyoDAO extends Conexion{
     
     public List listarComunidad() {
         List<ForoApoyo> lista = new ArrayList<>();
-        String consulta = "SELECT * FROM foroapoyo WHERE estado = 2";
+        String consulta = "SELECT * FROM foroapoyo WHERE estado = 2 ORDER BY fechaCreacion DESC";
         try {
             ps = con.prepareStatement(consulta);
             rs = ps.executeQuery();
@@ -19,7 +19,29 @@ public class ForoApoyoDAO extends Conexion{
                 foro.setIdForo(rs.getInt(1));
                 foro.setTitulo(rs.getString(2));
                 foro.setUsuario(rs.getInt(3));
-                //foro.setFechaCreacion(rs.getDate(4));
+                foro.setFechaCreacion(rs.getTimestamp(4));
+                foro.setContenido(rs.getString(5));
+                foro.setLikes(rs.getInt(6));
+                lista.add(foro);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error obtener lista foros: " + ex);
+        }
+        return lista;
+    }
+    
+    public List listarForosPendientes() {
+        List<ForoApoyo> lista = new ArrayList<>();
+        String consulta = "SELECT * FROM foroapoyo WHERE estado = 1";
+        try {
+            ps = con.prepareStatement(consulta);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ForoApoyo foro = new ForoApoyo();
+                foro.setIdForo(rs.getInt(1));
+                foro.setTitulo(rs.getString(2));
+                foro.setUsuario(rs.getInt(3));
+                foro.setFechaCreacion(rs.getTimestamp(4));
                 foro.setContenido(rs.getString(5));
                 foro.setLikes(rs.getInt(6));
                 lista.add(foro);
@@ -46,5 +68,27 @@ public class ForoApoyoDAO extends Conexion{
     
     public void agregarComentario(int id, String comentario) {
         String consulta = "";
+    }
+    
+    public void aceptarForo(int id) {
+        String consulta = "UPDATE foroapoyo SET estado = 2, fechaAprobacion = NOW() WHERE idForo = ?";
+        try {
+            ps = con.prepareStatement(consulta);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println("Error actualizar foro: " + ex);
+        }
+    }
+    
+    public void rechazarForo(int id) {
+        String consulta = "DELETE FROM foroapoyo WHERE idForo = ?";
+        try {
+            ps = con.prepareStatement(consulta);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println("Error eliminar foro: " + ex);
+        }
     }
 }

@@ -85,7 +85,7 @@ public class srvPagarMembresia extends HttpServlet {
             fields.put("cantidad", 1);
             fields.put("codigo", 2);
             fields.put("descripcion", "Membresia BabyGold");
-            fields.put("precio", 9.99);
+            fields.put("precio", 10.00);
             listaFields.add(fields);
 
             JRDataSource dataSource = new JRBeanCollectionDataSource(listaFields);
