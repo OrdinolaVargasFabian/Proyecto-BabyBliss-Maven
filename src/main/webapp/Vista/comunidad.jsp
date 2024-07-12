@@ -107,9 +107,12 @@
         let titulo = $('#titulo').val();
         let mensaje = $('#contenido').val();
         $.ajax({
-            url: '../srvControladorComunidad?accion=agregar&titulo='+titulo+'&mensaje='+mensaje,
+            url: '../srvControladorComunidad?accion=agregar',
             type: 'post',
-            data: {},
+            data: {
+                titulo: titulo,
+                mensaje: mensaje
+            },
             beforeSend: function () {
                 swal.fire({
                     title: 'ESPERA',
@@ -123,7 +126,7 @@
                 document.getElementById('frmAgregarPublicacion').reset();
                 swal.fire({
                     title: '¡Felicidades!',
-                    text: 'Tu publicación ha sido completada y estarï¿½ en revisión, se te notificará cuando sea publicada',
+                    text: 'Tu publicación ha sido completada y estará en revisión, se te notificará cuando sea publicada',
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 });
