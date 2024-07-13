@@ -82,19 +82,19 @@
             }
 
             .fab-container.open .sub-button:nth-child(2) {
-                transform: translateY(-80px);
+                transform: translateX(-80px);
                 opacity: 1;
                 visibility: visible;
             }
 
             .fab-container.open .sub-button:nth-child(3) {
-                transform: translateY(-140px);
+                transform: translateX(-140px);
                 opacity: 1;
                 visibility: visible;
             }
 
             .fab-container.open .sub-button:nth-child(4) {
-                transform: translateY(-200px);
+                transform: translateX(-200px);
                 opacity: 1;
                 visibility: visible;
             }
@@ -117,7 +117,7 @@
             }
 
             .chatbot-header {
-                background-color: #4ba2ff;
+                background-color: #C99FF4;
                 color: white;
                 padding: 10px;
                 text-align: center;
@@ -168,14 +168,40 @@
             </div>
         </div>
 
-        <div id="chatbotModal" class="chatbot-modal">
-            <div class="chatbot-header">Chatbot BabyBliss</div>
-            <div id="chatbotMessages" class="chatbot-messages"></div>
+        <div id="chatbotModal" class="chatbot-modal" style="width: 330px;">
+            <div class="chatbot-header"><b>BABYBOT</b><i class='bx bx-bot ms-2'></i></div>
+            <div id="chatbotMessages" class="chatbot-messages">
+                <div class="p-3 m-3 rounded shadow bg-light">
+                    <div class="row mb-2">
+                        <b>BabyBot</b>
+                    </div>
+                    <div class="row">
+                        <p>Hola, estoy aqui para ayudarte con tus dudas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dropup-center dropup text-center m-2">
+                <button class="btn btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bx-message-alt'></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button onclick="getChatbotResponse(event, 1)" class="btn btn-primary mb-2 shadow dropdown-item">¿Qué es BabyBliss?</button></li>
+                    <li><button onclick="getChatbotResponse(event, 2)" class="btn btn-primary mb-2 shadow dropdown-item">¿Cuál es el proceso de compra?</button></li>
+                    <li><button onclick="getChatbotResponse(event, 3)" class="btn btn-primary mb-2 shadow dropdown-item">¿Cómo puedo adquirir una membresía?</button></li>
+                    <li><button onclick="getChatbotResponse(event, 4)" class="btn btn-primary mb-2 shadow dropdown-item">¿Qué servicios ofrece BabyBliss?</button></li>
+                </ul>
+            </div>
             <div class="chatbot-input">
-                <form id="chatbotForm">
+                <!-- <form id="chatbotForm">
                     <input type="text" name="message" id="userMessage" placeholder="Escribe tu pregunta aquí...">
                     <button type="submit">Enviar</button>
-                </form>
+                </form> 
+                <div class="chatbot-predefined-messages d-flex flex-column align-items-center py-2">
+                    <li><button onclick="getChatbotResponse(1)" class="btn btn-primary mb-2 shadow dropdown-item">¿Qué es BabyBliss?</button></li>
+                    <li><button onclick="getChatbotResponse(2)" class="btn btn-primary mb-2 shadow dropdown-item">¿Cuál es el proceso de compra?</button></li>
+                    <li><button onclick="getChatbotResponse(3)" class="btn btn-primary mb-2 shadow dropdown-item">¿Cómo puedo adquirir una membresía?</button></li>
+                    <li><button onclick="getChatbotResponse(4)" class="btn btn-primary mb-2 shadow dropdown-item">¿Qué servicios ofrece BabyBliss?</button></li>
+                </div>-->
             </div>
         </div>
 
@@ -214,30 +240,85 @@
                 document.getElementById('userMessage').value = '';
             });
 
-            function getChatbotResponse(message) {
+            function getChatbotResponse(event, pregunta) {
                 // lógica para responder a los mensajes del usuario.    
-                const responses = {
-                    "hola": "¡Hola! ¿En qué puedo ayudarte?",
-                    "qué es babybliss": "Es un aplicativo web, donde proporcionamos herramientas de ayuda para las madres primerizas que tengas dificultades con el cuidado de su bebé",
-                    "cuál es el proceso de compra": "Para comprar productos en BabyBliss, 1. Navega a la tienda y selecciona los productos que deseas.\n\
-                                                  2. Añade los productos al carrito de compras.\n\
-                                                  3. Procede al pago y elige el método de pago que prefieras (tarjeta de crédito, transferencia bancaria, etc.).\n\
-                                                  4. Confirma tu compra y recibirás una notificación con los detalles de tu pedido.",
-                    "cómo puedo adquirir una membresía": "Para adquirir una membresía en BabyBliss, sigue estos pasos:\n\
+                var respuesta;
+                switch (pregunta) {
+                    case 1:
+                        respuesta = "Es un aplicativo web, donde proporcionamos herramientas de ayuda para las madres primerizas que tengas dificultades con el cuidado de su bebé.";
+                        break;
+                    case 2:
+                        respuesta = "Para comprar productos en BabyBliss,\n\
+                                    1. Navege a Baby Shop desde la barra de navegación y selecciona los productos que desee.\n\
+                                    2. Añada los productos al carrito de compras.\n\
+                                    3. Proceda al pago y eliga el método de pago que prefiera.\n\
+                                    4. Confirme su compra y recibirá una notificación con los detalles de su pedido vía correo electronico.";
+                        break;
+                    case 3:
+                        respuesta = "Para adquirir una membresía en BabyBliss, sigue estos pasos:\n\
                                                       1. Inicia sesión en tu cuenta.\n\
-                                                      2. Clic en el icono de su perfil.\n\
-                                                      3. Selecciona en membresías y observará el precio de nuestra membresía.\n\
-                                                      4. Elige su método de pago favorito.\n\
-                                                      5. Procede al pago y confirma tu compra.",
-                    "qué servicios ofrece babybliss": "BabyBliss ofrece los siguientes servicios:\n\
-                                                    - Consejos personalizados sobre el cuidado del bebé.\n\
-                                                    - Una tienda con productos para bebés.\n\
-                                                    - Un calendario para eventos y recordatorios.\n\
-                                                    - Una comunidad para interactuar con otros usuarios.\n\
-                                                    - Una opción premium donde podrás resolver tus dudas con un especialista.",
-                };
-
-                return responses[message.toLowerCase()] || "Lo siento, no entiendo tu pregunta.";
+                                                      2. Click en el icono de su perfil.\n\
+                                                      3. Selecciona en membresía y observará el precio.\n\
+                                                      4. Elija su método de pago favorito.\n\
+                                                      5. Proceda al pago y recibirá un correo de confirmación.";
+                        break;
+                    case 4:
+                        respuesta = "BabyBliss ofrece los siguientes servicios:\n\
+                                                            - Guias y consejos personalizados sobre el cuidado de su bebé.\n\
+                                                            - BabyShop, una tienda con productos para bebés.\n\
+                                                            - Un calendario para eventos y recordatorios.\n\
+                                                            - Una comunidad de apoyo para interactuar con otros usuarios.\n\
+                                                            - Una opción premium donde podrás resolver tus dudas en charlas privadas con especialistas.";
+                        break;
+                    default :
+                        respuesta = "Lo siento, no entiendo tu pregunta";
+                }
+                console.log(respuesta);
+                // Pregunta del usuario
+                $('#chatbotMessages').append(
+                        '<div class="p-3 m-3 rounded shadow" style="background-color: #C99FF4;">' +
+                        '<div class="row mb-2">' +
+                        '<b>Tú</b>' +
+                        '</div>' +
+                        '<div class="row">' +
+                        '<p>'+$(event.target).text()+'</p>' +
+                        '</div>' +
+                        '</div>'
+                        );
+                // Respuesta del bot
+                $('#chatbotMessages').append(
+                        '<div class="p-3 m-3 rounded shadow bg-light">' +
+                        '<div class="row mb-2">' +
+                        '<b>BabyBot</b>' +
+                        '</div>' +
+                        '<div class="row">' +
+                        '<p>' + respuesta + '</p>' +
+                        '</div>' +
+                        '</div>'
+                        );
+                $('#chatbotMessages').scrollTop($('#chatbotMessages')[0].scrollHeight);
+                /* const responses = {
+                 "hola": "¡Hola! ¿En qué puedo ayudarte?",
+                 "qué es babybliss": "Es un aplicativo web, donde proporcionamos herramientas de ayuda para las madres primerizas que tengas dificultades con el cuidado de su bebé",
+                 "cuál es el proceso de compra": "Para comprar productos en BabyBliss, 1. Navega a la tienda y selecciona los productos que deseas.\n\
+                 2. Añade los productos al carrito de compras.\n\
+                 3. Procede al pago y elige el método de pago que prefieras (tarjeta de crédito, transferencia bancaria, etc.).\n\
+                 4. Confirma tu compra y recibirás una notificación con los detalles de tu pedido.",
+                 "cómo puedo adquirir una membresía": "Para adquirir una membresía en BabyBliss, sigue estos pasos:\n\
+                 1. Inicia sesión en tu cuenta.\n\
+                 2. Clic en el icono de su perfil.\n\
+                 3. Selecciona en membresías y observará el precio de nuestra membresía.\n\
+                 4. Elige su método de pago favorito.\n\
+                 5. Procede al pago y confirma tu compra.",
+                 "qué servicios ofrece babybliss": "BabyBliss ofrece los siguientes servicios:\n\
+                 - Consejos personalizados sobre el cuidado del bebé.\n\
+                 - Una tienda con productos para bebés.\n\
+                 - Un calendario para eventos y recordatorios.\n\
+                 - Una comunidad para interactuar con otros usuarios.\n\
+                 - Una opción premium donde podrás resolver tus dudas con un especialista.",
+                 };
+                 
+                 return responses[message.toLowerCase()] || "Lo siento, no entiendo tu pregunta."; */
             }
         </script>
     </body>
