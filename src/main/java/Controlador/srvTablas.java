@@ -63,12 +63,16 @@ public class srvTablas extends HttpServlet {
         System.out.println(lista.size());
         for (int i = 0; i < lista.size(); i++) {
             Usuario usuario = (Usuario) lista.get(i);
+             System.out.println("Correo de usuario: " + usuario.getCorreo()); // Impresión de depuración
+            // El resto de tu código para agregar el usuario a la tabla HTML
             String nombres_completos = usuario.getAppat() + " " + usuario.getApmat() + ", " + usuario.getNombre();
+            
             System.out.println(usuario.getId());
-            sb.append("<tr><td>").append(usuario.getId()).append("</td><td>"+nombres_completos+"</td><td>juan@example.com</td></tr>");
+            sb.append("<tr><td>").append(usuario.getId()).append("</td><td>")
+                    .append(nombres_completos).append("</td><td>")
+                    .append(usuario.getCorreo()).append("</td></tr>");
         }
-        //sb.append("<tr><td>1</td><td>Juan Pérez</td><td>juan@example.com</td></tr>");
-        //sb.append("<tr><td>2</td><td>María Gómez</td><td>maria@example.com</td></tr>");
+        
         // Puedes agregar más filas desde una base de datos o una lista
         sb.append("</table>");
         return sb.toString();
