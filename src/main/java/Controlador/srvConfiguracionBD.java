@@ -11,7 +11,9 @@ import Persistencia.Parametros;
 import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.annotation.WebServlet;
 
+@WebServlet(name = "srvConfiguracionBD", urlPatterns = {"/srvConfiguracionBD"})
 public class srvConfiguracionBD extends HttpServlet implements Parametros{
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

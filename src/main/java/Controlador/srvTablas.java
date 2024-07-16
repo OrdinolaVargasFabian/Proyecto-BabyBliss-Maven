@@ -1,19 +1,16 @@
-
 package Controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import DAO.UsuarioDAO;
+import Modelo.Usuario;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Persistencia.Conexion;
-import java.sql.PreparedStatement;
 
 /**
  *
@@ -22,44 +19,59 @@ import java.sql.PreparedStatement;
 @WebServlet(name = "srvTablas", urlPatterns = {"/srvTablas"})
 public class srvTablas extends HttpServlet {
 
-   
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        try {
-            // Suponiendo que tienes un método para obtener la conexión a la base de datos
-//            Connection con = Conexion.getConnection();
-//            String consulta = "SELECT * FROM usuario";
-//            PreparedStatement ps = con.prepareStatement(consulta);
-//            ResultSet rs = ps.executeQuery();
-            
-            out.println("<table border='1'>");
-            out.println("<tr><th>ID</th><th>Nombre</th><th>Apellido Paterno</th><th>Apellido Materno</th><th>DNI</th><th>Fecha Nacimiento</th><th>Correo</th><th>Teléfono</th><th>Membresía</th></tr>");
-            
-//            while (rs.next()) {
-//                out.println("<tr>");
-//                out.println("<td>" + rs.getInt("id") + "</td>");
-//                out.println("<td>" + rs.getString("nombre") + "</td>");
-//                out.println("<td>" + rs.getString("appat") + "</td>");
-//                out.println("<td>" + rs.getString("apmat") + "</td>");
-//                out.println("<td>" + rs.getInt("dni") + "</td>");
-//                out.println("<td>" + rs.getDate("fechaNac") + "</td>");
-//                out.println("<td>" + rs.getString("correo") + "</td>");
-//                out.println("<td>" + rs.getInt("telefono") + "</td>");
-//                out.println("<td>" + rs.getInt("membresia") + "</td>");
-//                out.println("</tr>");
-//            }
-//            
-//            out.println("</table>");
-//            
-//            con.close();
-        } catch (Exception ex) {
-            out.println("Error: " + ex.getMessage());
-        } finally {
-            out.close();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Obtener el parámetro de opción
+        String opcion = request.getParameter("opcion");
+
+        // Inicializar el contenido de respuesta
+        String contenido = "";
+
+        // Generar contenido HTML según la opción
+        if (opcion != null) {
+            switch (opcion) {
+                case "Usuarios":
+                    contenido = generarTablaUsuarios();
+                    break;
+                // Agregar más casos para otras opciones
+                // case "OtraOpcion":
+                //     contenido = generarTablaOtraOpcion();
+                //     break;
+                default:
+                    contenido = "Opción no válida.";
+                    break;
+            }
+        } else {
+            contenido = "No se ha seleccionado ninguna opción.";
         }
+
+        // Establecer el tipo de contenido y devolver la respuesta
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.print(contenido);
+    }
+
+    // Método para generar la tabla de usuarios (Ejemplo)
+    private String generarTablaUsuarios() {
+        System.out.println("Generando Tabla...");
+        UsuarioDAO dao = new UsuarioDAO();
+        List lista = dao.obtenerUsuarios();
+        // Crear contenido HTML de ejemplo
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table border='1'>");
+        sb.append("<tr><th>ID</th><th>Nombre</th><th>Email</th></tr>");
+        // Agregar filas de ejemplo
+        System.out.println(lista.size());
+        for (int i = 0; i < lista.size(); i++) {
+            Usuario usuario = (Usuario) lista.get(i);
+            String nombres_completos = usuario.getAppat() + " " + usuario.getApmat() + ", " + usuario.getNombre();
+            System.out.println(usuario.getId());
+            sb.append("<tr><td>").append(usuario.getId()).append("</td><td>"+nombres_completos+"</td><td>juan@example.com</td></tr>");
+        }
+        //sb.append("<tr><td>1</td><td>Juan Pérez</td><td>juan@example.com</td></tr>");
+        //sb.append("<tr><td>2</td><td>María Gómez</td><td>maria@example.com</td></tr>");
+        // Puedes agregar más filas desde una base de datos o una lista
+        sb.append("</table>");
+        return sb.toString();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,7 +83,6 @@ public class srvTablas extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *

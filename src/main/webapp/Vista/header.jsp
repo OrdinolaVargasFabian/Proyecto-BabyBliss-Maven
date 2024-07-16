@@ -265,7 +265,7 @@
                             $('#productos-box').append(
                                     '<div class="col-md-3 mb-4">' +
                                     '<div class="productos card">' +
-                                    '<img src="" alt="' + data[i].nombre + '" class="card-img-top">' +
+                                    '<img src="'+data[i].imagen+'" alt="' + data[i].nombre + '" class="card-img-top">' +
                                     '<div class="card-body name-productos">' +
                                     '<h5 class="card-title">' + data[i].nombre + '</h5>' +
                                     '<hr>' +
