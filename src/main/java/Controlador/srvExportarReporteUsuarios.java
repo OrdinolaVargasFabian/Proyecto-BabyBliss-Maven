@@ -1,41 +1,36 @@
 package Controlador;
 
+import DAO.UsuarioDAO;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Persistencia.Parametros;
-import com.google.gson.Gson;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.annotation.WebServlet;
-
-@WebServlet(name = "srvConfiguracionBD", urlPatterns = {"/srvConfiguracionBD"})
-public class srvConfiguracionBD extends HttpServlet implements Parametros{
+public class srvExportarReporteUsuarios extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+        UsuarioDAO dao = new UsuarioDAO();
         
-        // Usar un Map para almacenar los datos con claves específicas
-        Map<String, String> bd = new HashMap<>();
-        bd.put("nombreBD", nombreBD);
-        bd.put("servidor", servidor);
-        bd.put("puerto", String.valueOf(puerto));
-        bd.put("usuario", USER);
-        bd.put("clave", CLAVE);
-        bd.put("url", URL);
-        
-        try (PrintWriter out = response.getWriter()) {
-            Gson gson = new Gson();
-            String json = gson.toJson(bd);
-            out.print(json);
-            out.flush();
-        }
+        List<Map<String, Object>> listaFields = new ArrayList<>();
+        Map<String, Object> fields = new HashMap<String, Object>();
+        fields.put("id", 1);
+        fields.put("nombres_completos", 2);
+        fields.put("dni", "Membresia BabyGold");
+        fields.put("fecha_nacimiento", 10.00);
+        fields.put("correo", 10.00);
+        fields.put("telefono", 10.00);
+        fields.put("membresia", 10.00);
+        listaFields.add(fields);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

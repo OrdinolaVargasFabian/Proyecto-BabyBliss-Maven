@@ -121,7 +121,7 @@
     </head>
     <body>
         <main class="form-container">
-            <form method="post"  action="<%=request.getContextPath()%>/svrRegistroUsuario">
+            <form method="post"  action="<%=request.getContextPath()%>/svrRegistroUsuario" accept-charset="UTF-8">
                 <center>
                     <img src="../babybliss_logo.png" alt="BabyBliss Logo" width="150" height="150">
                     <h1 class="h3 mb-3 fw-normal">Registrar Sesión</h1>

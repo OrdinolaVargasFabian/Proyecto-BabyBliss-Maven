@@ -51,11 +51,11 @@ public class srvControladorComunidad extends HttpServlet {
                 data.put("titulo", lista.get(i).getTitulo());
                 data.put("contenido", lista.get(i).getContenido());
                 data.put("fechaCreacion", lista.get(i).getFechaCreacion());
-                data.put("usuario", usuario.getAppat() + " " + usuario.getApmat()+ " " + usuario.getNombre());
-                
+                data.put("usuario", usuario.getAppat() + " " + usuario.getApmat() + " " + usuario.getNombre());
+
                 listaData.add(data);
             }
-            try (PrintWriter out = response.getWriter()) {
+            try ( PrintWriter out = response.getWriter()) {
                 Gson gson = new Gson();
                 String json = gson.toJson(listaData);
                 out.print(json);
@@ -73,12 +73,12 @@ public class srvControladorComunidad extends HttpServlet {
                 data.put("titulo", lista.get(i).getTitulo());
                 data.put("contenido", lista.get(i).getContenido());
                 data.put("fechaCreacion", lista.get(i).getFechaCreacion());
-                data.put("usuario", usuario.getAppat() + " " + usuario.getApmat()+ " " + usuario.getNombre());
+                data.put("usuario", usuario.getAppat() + " " + usuario.getApmat() + " " + usuario.getNombre());
                 data.put("correo", usuario.getCorreo());
-                
+
                 listaData.add(data);
             }
-            
+
             int totalRegistros = lista.size();
 
             Map<String, Object> jsonMap = new HashMap<>();
@@ -88,7 +88,7 @@ public class srvControladorComunidad extends HttpServlet {
 
             System.out.println(jsonMap);
 
-            try (PrintWriter out = response.getWriter()) {
+            try ( PrintWriter out = response.getWriter()) {
                 Gson gson = new Gson();
                 String json = gson.toJson(jsonMap);
                 out.print(json);
@@ -186,6 +186,17 @@ public class srvControladorComunidad extends HttpServlet {
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
+        } else if (accion.equals("agregarComentario")) {
+            
+            String mensaje = request.getParameter("mensaje");
+            
+            ForoApoyo foro = new ForoApoyo();
+            foro.setContenido(mensaje);
+            HttpSession session = request.getSession();
+            Usuario usuario = (Usuario) session.getAttribute("user");
+            foro.setUsuario(usuario.getId());
+            dao.agregarComentario(foro);
+            System.out.println("Comentario agregado correctamente");
         }
     }
 

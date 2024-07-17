@@ -31,7 +31,8 @@
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
 
-        <%--Iconos--%>
+        <%--Iconos--%>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
         <%--Pop Ups--%>
@@ -223,10 +224,15 @@
                 </li> 
                 <%  if (perfil_usuario == 2) {%>
 
-                <li class="nav-item">
-                    <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bx-detail me-2'></i>Administrar
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/tablaDashboard.jsp"><i class='bx bxs-dashboard me-2'></i>Dashboard</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Tablas</a></li>
+                    </ul>
                 </li>
-
                 <% } %>
                 <%                    //Se verifica si el usuario tiene una membresia
                     if (membresia == 2) {
@@ -265,7 +271,7 @@
                             $('#productos-box').append(
                                     '<div class="col-md-3 mb-4">' +
                                     '<div class="productos card">' +
-                                    '<img src="" alt="' + data[i].nombre + '" class="card-img-top">' +
+                                    '<img src="' + data[i].imagen + '" alt="' + data[i].nombre + '" class="card-img-top">' +
                                     '<div class="card-body name-productos">' +
                                     '<h5 class="card-title">' + data[i].nombre + '</h5>' +
                                     '<hr>' +
@@ -358,7 +364,7 @@
                 localStorage.setItem('cart', JSON.stringify(cart));
                 showCart(); // Actualizar la visualización del carrito
             }
-            
+
             function validarSesion() {
                 var perfil = $('#idPerfil').val();
                 if (perfil != 0) {
