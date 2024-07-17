@@ -16,6 +16,10 @@
         <servlet-name>srvConfiguracionBD</servlet-name>
         <servlet-class>Controlador.srvConfiguracionBD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvExportarReporteUsuarios</servlet-name>
+        <servlet-class>Controlador.srvExportarReporteUsuarios</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvPagarMembresia</servlet-name>
         <url-pattern>/srvPagarMembresia</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>srvConfiguracionBD</servlet-name>
         <url-pattern>/srvConfiguracionBD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvExportarReporteUsuarios</servlet-name>
+        <url-pattern>/srvExportarReporteUsuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

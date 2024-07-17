@@ -57,8 +57,8 @@ public class srvTablas extends HttpServlet {
         List lista = dao.obtenerUsuarios();
         // Crear contenido HTML de ejemplo
         StringBuilder sb = new StringBuilder();
-        sb.append("<table border='1'>");
-        sb.append("<tr><th>ID</th><th>Nombre</th><th>Email</th></tr>");
+        //sb.append("<table id='tbl-usuarios' border='1'>");
+        sb.append("<thead><tr><th>ID</th><th>Nombre</th><th>Email</th></tr></thead><tbody>");
         // Agregar filas de ejemplo
         System.out.println(lista.size());
         for (int i = 0; i < lista.size(); i++) {
@@ -72,9 +72,11 @@ public class srvTablas extends HttpServlet {
                     .append(nombres_completos).append("</td><td>")
                     .append(usuario.getCorreo()).append("</td></tr>");
         }
+        sb.append("</tbody>");
         
         // Puedes agregar más filas desde una base de datos o una lista
-        sb.append("</table>");
+        //sb.append("</table>");
+        System.out.println(sb.toString());
         return sb.toString();
     }
 

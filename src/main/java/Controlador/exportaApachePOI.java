@@ -45,8 +45,6 @@ public class exportaApachePOI extends HttpServlet {
         Conexion conexion = new Conexion();
         if (conexion.con != null) {
             try (OutputStream out = response.getOutputStream(); Workbook workbook = new XSSFWorkbook()) {
-                // ACA
-
                 exportarUsuariosAExcel(conexion.con, workbook);
                 workbook.write(out);
                 System.out.println("Archivo Excel generado exitosamente!");
