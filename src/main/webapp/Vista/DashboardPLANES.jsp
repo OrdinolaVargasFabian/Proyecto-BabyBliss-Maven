@@ -22,9 +22,7 @@
     
 </head>
 <body>
-    <div id="membresiaChartContainer">
-        <canvas id="membresiaChart"></canvas>
-    </div>
+    
 
 
     <script>

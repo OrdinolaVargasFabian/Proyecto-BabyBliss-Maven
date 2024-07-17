@@ -19,11 +19,58 @@
     </style>
 </head>
 <body>
-    <div id="ventasChartContainer">
-        <canvas id="ventasChart"></canvas>
+    <div class="m-5">
+        <div class="d-flex justify-content-between">
+            <div class="col bg-white rounded shadow p-3 m-4">
+                <h3 class="text-center">Productos más vendidos</h3>
+                <hr>
+                <canvas id="ventasChart"></canvas>
+            </div>
+            <div class="col bg-white rounded shadow p-3 m-4">
+                <h3 class="text-center">Planes de los usuarios registrados en BabyBliss</h3>
+                <hr>
+                <canvas id="membresiaChart"></canvas>
+            </div>
+        </div>
     </div>
-
     <script>
+        // Grafico pastel de membresia
+        fetch('../srvObtenerMembresia') 
+            .then(response => response.json())
+            .then(data => {
+                const sinMembresia = data.sinMembresia;
+                const conMembresia = data.conMembresia;
+
+                const ctx = document.getElementById('membresiaChart').getContext('2d');
+                const membresiaChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Sin Membresía', 'Con Membresía'],
+                        datasets: [{
+                            label: 'Cantidad de Membresías',
+                            data: [sinMembresia, conMembresia],
+                            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cantidad de Membresías'
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    
+        // Histograma de productos mas vendidos
         fetch('../srvObtenerVentas') 
             .then(response => response.json())
             .then(data => {
@@ -57,7 +104,7 @@
                     data: {
                         labels: nombresProductos,
                         datasets: [{
-                            label: 'Cantidad Vendida',
+                            label: 'Cantidad de Productos',
                             data: cantidades,
                             backgroundColor: colores,
                             borderColor: borderColores,
@@ -75,5 +122,4 @@
             })
             .catch(error => console.error('Error fetching data:', error));
     </script>
-</body>
-</html>
+<%@ include file="footer.jsp" %>

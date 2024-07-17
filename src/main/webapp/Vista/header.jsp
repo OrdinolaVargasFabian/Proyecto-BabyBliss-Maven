@@ -225,11 +225,11 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class='bx bx-table me-2'></i>Administrativa
+                        <i class='bx bx-detail me-2'></i>Administrar
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/dashboardGRAFICO.jsp">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp">Tablas</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/tablaDashboard.jsp"><i class='bx bxs-dashboard me-2'></i>Dashboard</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Tablas</a></li>
                     </ul>
                 </li>
                 <% } %>

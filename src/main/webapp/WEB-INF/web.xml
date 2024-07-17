@@ -40,6 +40,10 @@
         <servlet-name>srvExportarReporteUsuarios</servlet-name>
         <url-pattern>/srvExportarReporteUsuarios</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvObtenerVentas</servlet-name>
+        <url-pattern>/srvObtenerVentas</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
