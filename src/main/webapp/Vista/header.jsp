@@ -223,10 +223,15 @@
                 </li> 
                 <%  if (perfil_usuario == 2) {%>
 
-                <li class="nav-item">
-                    <a  class="nav-link" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp"><i class='bx bx-table me-2'></i>Dashboard</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bx-table me-2'></i>Administrativa
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Opcion1.jsp">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp">Tablas</a></li>
+                    </ul>
                 </li>
-
                 <% } %>
                 <%                    //Se verifica si el usuario tiene una membresia
                     if (membresia == 2) {
@@ -265,7 +270,7 @@
                             $('#productos-box').append(
                                     '<div class="col-md-3 mb-4">' +
                                     '<div class="productos card">' +
-                                    '<img src="'+data[i].imagen+'" alt="' + data[i].nombre + '" class="card-img-top">' +
+                                    '<img src="' + data[i].imagen + '" alt="' + data[i].nombre + '" class="card-img-top">' +
                                     '<div class="card-body name-productos">' +
                                     '<h5 class="card-title">' + data[i].nombre + '</h5>' +
                                     '<hr>' +
@@ -358,7 +363,7 @@
                 localStorage.setItem('cart', JSON.stringify(cart));
                 showCart(); // Actualizar la visualización del carrito
             }
-            
+
             function validarSesion() {
                 var perfil = $('#idPerfil').val();
                 if (perfil != 0) {

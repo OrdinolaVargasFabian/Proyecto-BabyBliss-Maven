@@ -92,7 +92,7 @@ public class srvCarrito extends HttpServlet {
         DecimalFormat df = new DecimalFormat("#.##"); //Formato de 2 decimales
         
         double totalCarrito = Double.parseDouble(request.getParameter("total"));
-        double IGV = Double.parseDouble(df.format(totalCarrito * 18/100));
+        double IGV = totalCarrito * 18/100;
         double total = totalCarrito + IGV;
         
         System.out.println("Total: " + total);
