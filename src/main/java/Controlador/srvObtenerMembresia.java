@@ -11,35 +11,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
+
 
 @WebServlet(name = "srvObtenerMembresia", urlPatterns = {"/srvObtenerMembresia"})
 public class srvObtenerMembresia extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
-        
-        response.setContentType("image/png");
+
+        response.setContentType("application/json"); 
         OutputStream out = response.getOutputStream();
-        
+
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         try {
             Conexion conexion = new Conexion();
             con = conexion.con;
-            
+
             int noMembresia = 0;
             int Membresia = 0;
-            
+
             ps = con.prepareStatement("SELECT membresia FROM usuario WHERE membresia IN (1, 2)");
             rs = ps.executeQuery();
-                
+
             while (rs.next()) {
                 int membresia = rs.getInt("membresia");
                 if (membresia == 2) { // Membresía premium
@@ -48,18 +45,13 @@ public class srvObtenerMembresia extends HttpServlet {
                     noMembresia++;
                 }
             }
+
+            // Crear un objeto JSON con los datos necesarios
+            String json = "{\"sinMembresia\": " + noMembresia + ", \"conMembresia\": " + Membresia + "}";
             
-            DefaultPieDataset data = new DefaultPieDataset();
-            data.setValue("Sin Membresía: "+String.valueOf(noMembresia), noMembresia);
-            data.setValue("Con Membresía: "+String.valueOf(Membresia), Membresia);
-            
-            JFreeChart cha = ChartFactory.createPieChart3D("Cantidad de Membresías", data, true, true, true );
-            
-            int ancho = 750;
-            int alto = 600;
-            
-            ChartUtilities.writeChartAsPNG(out, cha, ancho, alto);
-            
+            // Enviar el objeto JSON como respuesta
+            out.write(json.getBytes());
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -74,5 +66,4 @@ public class srvObtenerMembresia extends HttpServlet {
         }
     }
 }
-
 

@@ -228,7 +228,7 @@
                         <i class='bx bx-table me-2'></i>Administrativa
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Opcion1.jsp">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/dashboardGRAFICO.jsp">Dashboard</a></li>
                         <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Vista/Dashboard.jsp">Tablas</a></li>
                     </ul>
                 </li>
