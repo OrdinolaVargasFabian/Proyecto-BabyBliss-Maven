@@ -47,6 +47,40 @@
     document.addEventListener('DOMContentLoaded', function () {
         cargarComunidad();
     });
+    function agregarComentario(idForo) {
+        let comentario = $('#comentario' + idForo).val();
+        $.ajax({
+            url: '../srvControladorComunidad?accion=agregarComentario',
+            type: 'post',
+            data: {
+                idForo: idForo,
+                comentario: comentario
+            },
+            success: function (response) {
+                console.log("Comentario agregado correctamente");
+                cargarComunidad();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error al agregar comentario: " + error);
+            }
+        });
+    }
+    function mostrarReacciones(idForo) {
+        $('#reacciones' + idForo).toggle();
+    }
+
+    function reaccionar(idForo, tipoReaccion) {
+        $('#reaccion' + idForo).text(tipoReaccion);
+        $('#reacciones' + idForo).hide();
+    }
+
+
+
+    function ocultarComentar(id) {
+        $('#collapseComentario' + id).collapse('hide');
+    }
+
+
     function cargarComunidad() {
         $.ajax({
             url: '../srvControladorComunidad?accion=listar',
@@ -63,79 +97,54 @@
                             '<img src="../default.png" alt="User" class="rounded-circle" style="width: 50px;">' +
                             '</div>' +
                             '<div>' +
-                            '<strong class="ml-2 row ms-2">'+data[i].usuario+'</strong>' +
-                            '<small class="row ms-2">'+data[i].fechaCreacion+'</small>' +
+                            '<strong class="ml-2 row ms-2">' + data[i].usuario + '</strong>' +
+                            '<small class="row ms-2">' + data[i].fechaCreacion + '</small>' +
                             '</div>' +
                             '</div>' +
                             '<hr>' +
                             '<div class="ps-3 pe-3">' +
-                            '<h4 class="mt-3">'+data[i].titulo+'</h4>' +
-                            '<p class="">'+data[i].contenido+'</p>' +
+                            '<h4 class="mt-3">' + data[i].titulo + '</h4>' +
+                            '<p class="">' + data[i].contenido + '</p>' +
                             '</div>' +
                             '<hr>' +
                             '<div class="d-flex justify-content-between align-items-center">' +
-                            '<a href="#" class="btn btn-outline-primary"><i class="bx bx-like me-2"></i><small>0</small></a>' +
-                            '<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComentario'+data[i].idForo+'" aria-expanded="false" aria-controls="collapseExample">' +
-                            '<i class="bx bx-comment me-2"></i><small>Comentar</small>' +
+                            '<a href="#" class="btn btn-outline-primary" onclick="mostrarReacciones(' + data[i].idForo + ')"><i class="fas fa-thumbs-up me-2"></i><small id="reaccion' + data[i].idForo + '">Reaccionar</small></a>' +
+                            '<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComentario' + data[i].idForo + '" aria-expanded="false" aria-controls="collapseExample">' +
+                            '<i class="fas fa-comment me-2"></i><small>Comentar</small>' +
                             '</button>' +
                             '</div>' +
-                            '<div class="collapse mt-3" id="collapseComentario'+data[i].idForo+'">' +
+                            '<div class="collapse mt-3" id="collapseComentario' + data[i].idForo + '">' +
                             '<div class="card card-body">' +
                             '<form method="POST" onsubmit="return false">' +
                             '<div class="mb-3">' +
                             '<label for="comentario" class="form-label">Comentario:</label>' +
-                            '<textarea class="form-control" id="comentario" rows="2" placeholder="Mensaje..."></textarea>' +
+                            '<textarea class="form-control" id="comentario' + data[i].idForo + '" rows="2" placeholder="Mensaje..."></textarea>' +
                             '</div>' +
                             '<div class="d-inline-flex gap-1">' +
-                            '<button class="btn btn-primary">Comentar</button>' +
-                            '<button class="btn btn-danger" onclick="ocultarComentar('+data[i].idForo+')">Cancelar</button>' +
+                            '<button class="btn btn-primary" onclick="agregarComentario(' + data[i].idForo + ')">Comentar</button>' +
+                            '<button class="btn btn-danger" onclick="ocultarComentar(' + data[i].idForo + ')">Cancelar</button>' +
                             '</div>' +
                             '</form>' +
                             '</div>' +
+                            '</div>' +
+                            '<div id="reacciones' + data[i].idForo + '" style="display: none;">' +
+                            '<button class="btn btn-outline-primary" onclick="reaccionar(' + data[i].idForo + ', \'Me gusta\')"><i class="fas fa-thumbs-up me-2"></i>Me gusta</button>' +
+                            '<button class="btn btn-outline-primary" onclick="reaccionar(' + data[i].idForo + ', \'Me encanta\')"><i class="fas fa-heart me-2"></i>Me encanta</button>' +
+                            '<button class="btn btn-outline-primary" onclick="reaccionar(' + data[i].idForo + ', \'Me importa\')"><i class="fas fa-hand-holding-heart me-2"></i>Me importa</button>' +
+                            '<button class="btn btn-outline-primary" onclick="reaccionar(' + data[i].idForo + ', \'Me entristece\')"><i class="fas fa-sad-tear me-2"></i>Me entristece</button>' +
+                            '<button class="btn btn-outline-primary" onclick="reaccionar(' + data[i].idForo + ', \'Me enfada\')"><i class="fas fa-angry me-2"></i>Me enfada</button>' +
                             '</div>' +
                             '</div>'
                             );
                 }
             },
             error: function (xhr, status, error) {
-                console.error("Error obtener comunidad " + error);
+                console.error("Error al cargar comunidad: " + error);
             }
         });
     }
-
-    function agregarPublicacion() {
-        let titulo = $('#titulo').val();
-        let mensaje = $('#contenido').val();
-        $.ajax({
-            url: '../srvControladorComunidad?accion=agregar',
-            type: 'post',
-            data: {
-                titulo: titulo,
-                mensaje: mensaje
-            },
-            beforeSend: function () {
-                swal.fire({
-                    title: 'ESPERA',
-                    html: 'Procesando...',
-                    didOpen: () => {
-                        swal.showLoading()
-                    }
-                })
-            },
-            success: function (response) {
-                document.getElementById('frmAgregarPublicacion').reset();
-                swal.fire({
-                    title: '¡Felicidades!',
-                    text: 'Tu publicación ha sido completada y estará en revisión, se te notificará cuando sea publicada',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                });
-            }
-        });
-    }
-    
-    function ocultarComentar(id) {
-        $('#collapseComentario'+id).collapse('hide');
-    }
+    $(document).ready(function () {
+        cargarComunidad();
+    });
 </script>
 <%@ include file="footer.jsp" %> <!-- Incorpora el cÃ³digo del archivo footer -->
